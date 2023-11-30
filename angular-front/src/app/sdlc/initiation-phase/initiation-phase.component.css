@@ -1,4 +1,8 @@
 body{
     background-color: bisque;
     padding: 15px;
+    width: auto;
+}
+div{
+    margin: 10px;
 }

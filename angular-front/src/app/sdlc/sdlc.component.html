@@ -6,18 +6,36 @@
     <title>SDLC PHASES</title>
 </head>
 <body>
-    <div>
-        <label for="SDLC">Choose a Phase</label>
-
-        <select name="SDLC-Phases" id="SDLC-Phases">
-            <option value="Init">Initiation Phase</option>
-            <option value="Req">Requirements Phase</option>
-            <option value="audi">Design Phase</option>
+      <div style="background-color: aqua; padding: 10px;">
+        <select  (change)="selectPhase($event)">
+          <option disabled selected>Select Phase</option>
+          <option *ngFor="let phase of phases" [value]="phase">{{ phase }}</option>
         </select>
-        <button value="create">Create</button>
-        <app-initiation-phase></app-initiation-phase>
-        <app-requirement-phase></app-requirement-phase>
-        <app-design-phase></app-design-phase>
-   </div>
+      </div>
+      <div *ngIf="showForm">
+        <form>
+          <div>
+            <button (click)="closeForm()">Close</button>
+          </div>
+        
+          <div *ngIf="selectedPhase === 'Initiation'">
+            <app-initiation-phase></app-initiation-phase>
+          </div>
+        
+          <div *ngIf="selectedPhase === 'SRS'">
+            <app-requirement-phase></app-requirement-phase>
+          </div>
+        
+          <div *ngIf="selectedPhase === 'Design'">
+            <app-design-phase></app-design-phase>
+          </div>
+      
+          <button (click)="saveData()">Save</button>
+        </form>
+      </div>
+      
+      <div *ngIf="showFiles">
+        <!-- Display files of the selected phase -->
+      </div>
 </body>
 </html>
