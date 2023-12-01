@@ -6,13 +6,21 @@
     <title>Document</title>
 </head>
 <body>
-    <label for="SRS">SRS: </label>
-    <br><br>
-    <input type="file" id="newDoc" name="newDoc" value="add new document">
-    <br><br>
-    <label for="purpose">file name: </label>
-    <input type="text" placeholder="image">
+
+    <div>
+        <label>insert documents as images</label>
+    </div>
+    <input type="file" id="myfile" name="myfile">
+    
+    
+    <div>
+    <label>file name</label>
+    <input [(ngModel)]="fileName" type="text">
     <input type="file" id="browseImage" name="browseImage">
-    <br><br>
+    </div>
+
+    <button (click)="saveData()">Save</button>
+
+    
 </body>
 </html>

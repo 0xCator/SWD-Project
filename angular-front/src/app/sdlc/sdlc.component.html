@@ -6,36 +6,35 @@
     <title>SDLC PHASES</title>
 </head>
 <body>
-      <div style="background-color: aqua; padding: 10px;">
-        <select  (change)="selectPhase($event)">
-          <option disabled selected>Select Phase</option>
-          <option *ngFor="let phase of phases" [value]="phase">{{ phase }}</option>
-        </select>
-      </div>
+  <div style="background-color: aqua; padding: 10px;">
+    <button *ngIf="!showForm" (click)="showForm = true">Create</button>
+    <select *ngIf="showForm" (change)="selectPhase($event)">
+      <option disabled selected>Select Phase</option>
+      <option *ngFor="let phase of phases" [value]="phase">{{ phase }}</option>
+    </select>
+    <button *ngIf="showForm" (click)="closeForm()">Close</button>
+  </div>
       <div *ngIf="showForm">
         <form>
-          <div>
-            <button (click)="closeForm()">Close</button>
-          </div>
         
           <div *ngIf="selectedPhase === 'Initiation'">
             <app-initiation-phase></app-initiation-phase>
+            <!-- <button (click)="saveInitiationForm()">Save</button> -->
           </div>
-        
+          
           <div *ngIf="selectedPhase === 'SRS'">
-            <app-requirement-phase></app-requirement-phase>
+            <!-- <app-requirement-phase (saveForm)="saveForm($event)"></app-requirement-phase> -->
           </div>
-        
+          
           <div *ngIf="selectedPhase === 'Design'">
-            <app-design-phase></app-design-phase>
+            <!-- <app-design-phase (saveForm)="saveForm($event)"></app-design-phase> -->
           </div>
-      
-          <button (click)="saveData()">Save</button>
         </form>
       </div>
       
-      <div *ngIf="showFiles">
-        <!-- Display files of the selected phase -->
-      </div>
-</body>
-</html>
+      <!-- <div *ngIf="showFiles">
+       
+      </div> -->
+    </body>
+    </html>
+   

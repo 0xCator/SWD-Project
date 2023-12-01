@@ -14,18 +14,7 @@ export class InitiationPhaseComponent {
   information: string = '';
   scopeStatements: string = '';
 
-  saveForm(): void {
-    // Logic to save the form data
-
+  saveData(): void {
   }
 
-  resetForm(): void {
-    this.title = '';
-    this.startDate = '';
-    this.endDate = '';
-    this.objectives = '';
-    this.managers = '';
-    this.information = '';
-    this.scopeStatements = '';
-  }
 }

@@ -6,11 +6,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./sdlc.component.css']
 })
 export class SDLCComponent {
-  selectedPhase: string ='';
-  showForm = false;
-  showFiles = false;
-
-  phases = ['Initiation', 'SRS', 'Design'];
+  selectedPhase: string = '';
+  showForm: boolean = false;
+  showFiles: boolean = false;
+  savedForms: any[] = [];
+  phases: string[] = ['Initiation', 'SRS', 'Design'];
 
   constructor(private router: Router) {}
 
@@ -22,12 +22,42 @@ export class SDLCComponent {
     this.router.navigate(['/sdlc', phase.toLowerCase()]);
   }
 
+  ngOnInit(): void {
+    this.savedForms = [
+      { phase: 'Initiation', formData: { /* initiation form data */ } },
+      { phase: 'SRS', formData: { /* SRs // data */ } },
+      { phase: 'Design', formData: { /* design // data */ } },
+    ];
+  }
+
   closeForm(): void {
     this.showForm = false;
     this.selectedPhase = '';
   }
-
-  saveData(): void {
-    // Logic to save the form data
+  /*
+  saveInitiationForm(): void {
+    const formData = { };// Get the form data for Initiation phase 
+    const savedForm = { phase: 'Initiation', formData };
+    this.savedForms.push(savedForm);
   }
+
+  saveSRSForm(): void {
+    const formData = {  };// Get the form data for SRS phase 
+    const savedForm = { phase: 'SRS', formData };
+    this.savedForms.push(savedForm);
+  }
+
+  saveDesignForm(): void {
+    const formData = {  }; // Get the form data for Design phase
+    const savedForm = { phase: 'Design', formData };
+    this.savedForms.push(savedForm);
+  }
+  saveForm(event: any): void {
+    const savedForm = event;
+    this.savedForms.push(savedForm);
+    
+      // this.formList.push(savedForm);
+  }
+  */
+  
 }

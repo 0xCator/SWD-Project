@@ -6,30 +6,29 @@
     <title>Document</title>
 </head>
 <body>
-    <form name="SRS"><!--close button -> close the form-->
-        <label for="SRS">SRS: </label><button value="close">Close</button>
-        <br><br>
-        <label for="purpose">purpose: </label>
-        <input type="text" id="#" name="title" value="" placeholder="purpose">
-        <br><br>
-
-       
-
-        <label for="audience">audience: </label><br>
-        <input type="text" id="#" name="" value="" placeholder="audience"><br>
-        <br>
-        <label for="description">description: </label><br>
-        <input type="text" id="#" name="" value="" placeholder="description"><br>
-        <br>
-        <label for="SRS">SRS: </label><br>
-        <input type="text" id="#" name="" value="" placeholder="SRS"><br>
-        <br><br>
-
-        <label for="images">usecase</label>
+    <form>
+        <div>
+            <label>purpose</label>
+            <input [(ngModel)]="purpose" type="text">
+        </div>
+        <div>
+            <label>audience</label>
+            <input [(ngModel)]="audience" type="text">
+        </div>
+        <div>
+            <label>description</label>
+            <input [(ngModel)]="description" type="text">
+        </div>
+        <div>
+            <label>SRS</label>
+            <textarea [(ngModel)]="SRS" type="text"></textarea>
+        </div>
+        <label>usecase</label>
         <input type="file" id="myfile" name="myfile">
         <br><br>    
-        <input type="submit" value="save">
-        <input type="submit" value="reset">
+        
+        <button (click)="saveData()">Save</button>
+        <input type="reset" value="Reset">
     </form> 
 </body>
 </html>
