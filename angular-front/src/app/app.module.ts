@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SDLCComponent } from './sdlc/sdlc.component';
 import { AllFilesComponent } from './all-files/all-files.component';
-import { InitiationPhaseModule } from "./sdlc/sdlc.module";
+import { SDLCModule } from "./sdlc/sdlc.module";
 
 ;
 
@@ -20,7 +20,7 @@ import { InitiationPhaseModule } from "./sdlc/sdlc.module";
     imports: [
         BrowserModule,
         AppRoutingModule,
-        InitiationPhaseModule
+        SDLCModule
     ]
 })
 export class AppModule { }

@@ -23,10 +23,12 @@
           </div>
           
           <div *ngIf="selectedPhase === 'SRS'">
+            <app-requirement-phase></app-requirement-phase>
             <!-- <app-requirement-phase (saveForm)="saveForm($event)"></app-requirement-phase> -->
           </div>
           
           <div *ngIf="selectedPhase === 'Design'">
+            <app-design-phase></app-design-phase>
             <!-- <app-design-phase (saveForm)="saveForm($event)"></app-design-phase> -->
           </div>
         </form>
