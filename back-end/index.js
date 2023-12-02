@@ -1,13 +1,13 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const { typeDefs } = require("./Schema/type-defs");
-const { resolvers } = require("./schema/resolvers");
+const { resolvers } = require("./Schema/resolvers");
 const mongoose = require("mongoose");
 
 async function startServer() {
   const app = express();
 
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer({ typeDefs, resolvers});
   await server.start();
   server.applyMiddleware({ app });
 
