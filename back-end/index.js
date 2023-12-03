@@ -11,7 +11,7 @@ async function startServer() {
   await server.start();
   server.applyMiddleware({ app });
 
-  mongoose.connect("mongodb://localhost:27017/user_db"); //Link goes here
+  mongoose.connect("mongodb://127.0.0.1:27017/user_db"); //Link goes here
   console.log("mongoose connected");
 
   app.listen(4000, () => {

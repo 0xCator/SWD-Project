@@ -3,35 +3,34 @@ const mongoose = require("mongoose");
 const DocumentSchema = new mongoose.Schema({
     docType: {
         type: String,
-        optional: true,
     },
     title: {
         type: String,
-        opional: true,
+        optional: true,
     },
     startDate: {
         type: String,
-        opional: true,
+        optional: true,
     },
     endDate: {
         type: String,
-        opional: true,
+        optional: true,
     },
     objective: {
         type: String,
-        opional: true,
+        optional: true,
     },
     manager: {
         type: String,
-        opional: true,
+        optional: true,
     },
     budget: {
         type: Number,
-        opional: true,
+        optional: true,
     },
     scope: {
         type: String,
-        opional: true,
+        optional: true,
     },
     intro: {
         type: String,

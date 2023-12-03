@@ -6,24 +6,24 @@ const typeDefs = gql`
     id: ID!
     docType: String!    
     #Initiation phase
-    title: String!
-    startDate: String!
-    endDate: String!
-    objective: String!
-    manager: String!
-    budget: Float!
-    scope: String!
+    title: String
+    startDate: String
+    endDate: String
+    objective: String
+    manager: String
+    budget: Float
+    scope: String
 
     #Requirement phase
-    intro: String!
-    purpose: String!
-    intendedAudience: String!
-    description: String!
-    srs: String!
-    useCases: String!
+    intro: String
+    purpose: String
+    intendedAudience: String
+    description: String
+    srs: String
+    useCases: String
 
     #Design phase
-    image: [String]!
+    image: [String]
   }
 
   type Query {
@@ -35,47 +35,47 @@ const typeDefs = gql`
     docType: String!
 
     #Initiation phase
-    title: String!
-    startDate: String!
-    endDate: String!
-    objective: String!
-    manager: String!
-    budget: Float!
-    scope: String!
+    title: String
+    startDate: String
+    endDate: String
+    objective: String
+    manager: String
+    budget: Float
+    scope: String
 
     #Requirement phase
-    intro: String!
-    purpose: String!
-    intendedAudience: String!
-    description: String!
-    srs: String!
-    useCases: String!
+    intro: String
+    purpose: String
+    intendedAudience: String
+    description: String
+    srs: String
+    useCases: String
 
     #Design phase
-    image: [String]!
+    image: [String]
   }
 
   input updateInput {
 
     #Initiation phase
-    title: String!
-    startDate: String!
-    endDate: String!
-    objective: String!
-    manager: String!
-    budget: Float!
-    scope: String!
+    title: String
+    startDate: String
+    endDate: String
+    objective: String
+    manager: String
+    budget: Float
+    scope: String
 
     #Requirement phase
-    intro: String!
-    purpose: String!
-    intendedAudience: String!
-    description: String!
-    srs: String!
-    useCases: String!
+    intro: String
+    purpose: String
+    intendedAudience: String
+    description: String
+    srs: String
+    useCases: String
 
     #Design phase
-    image: [String]!
+    image: [String]
     
   }
 

@@ -13,13 +13,13 @@ const resolvers = {
         createDocument: async (_, {document}) => {
             const newDocument = new Document();
             newDocument.docType = document.docType;
-            newDocument.title = document.title;
-            newDocument.startDate = document.startDate;
-            newDocument.endDate = document.endDate;
-            newDocument.objective = document.objective;
-            newDocument.manager = document.manager;
-            newDocument.budget = document.budget;
-            newDocument.scope = document.scope;
+            if (document.title) newDocument.title = document.title;
+            if (document.startDate) newDocument.startDate = document.startDate;
+            if (document.endDate) newDocument.endDate = document.endDate;
+            if (document.objective) newDocument.objective = document.objective;
+            if (document.manager) newDocument.manager = document.manager;
+            if (document.budget) newDocument.budget = document.budget;
+            if (document.scope) newDocument.scope = document.scope;
             if (document.intro) newDocument.intro = document.intro;
             if (document.purpose) newDocument.purpose = document.purpose;
             if (document.intendedAudience) newDocument.intendedAudience = document.intendedAudience;
@@ -27,7 +27,8 @@ const resolvers = {
             if (document.srs) newDocument.srs = document.srs;
             if (document.useCases) newDocument.useCases = document.useCases;
             if (document.image) newDocument.image = document.image;
-            return await newDocument.save();
+            await newDocument.save();
+            return newDocument;
         }, 
         updateDocument: async (_, {id, document}) => {
             const update = {};
@@ -48,7 +49,8 @@ const resolvers = {
 
             return await Document.findByIdAndUpdate(id, update, {new: true});
         },
-        deleteDocument: async (_, {id}) => {
+        deleteDocument: async (_, args) => {
+            const { id } = args;
             await Document.findByIdAndDelete(id);
             return "Document deleted";
         }
