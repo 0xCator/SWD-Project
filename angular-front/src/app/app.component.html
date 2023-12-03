@@ -6,7 +6,13 @@
 
 </head>
 <body>
-    <app-sdlc></app-sdlc>
-    <app-all-files></app-all-files>
+    <div>
+        <ul>   
+            <li><h1>Documentation System</h1></li>
+            <li> <a [routerLink] ="['/', 'sdlc']">SDLC</a></li>
+            <li> <a [routerLink] ="['/', 'all-files']">All Files</a></li>
+        </ul> 
+    </div>
+    <router-outlet></router-outlet>
 </body>
 </html>
