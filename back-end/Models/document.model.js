@@ -56,10 +56,10 @@ const DocumentSchema = new mongoose.Schema({
         type: String,
         optional: true,
     },
-    image: {
-        type: [String],
-        optional: true,
-    },
+    image:[{
+        imageTitle: String,
+        imagePath: String
+    }],
 
 });
 

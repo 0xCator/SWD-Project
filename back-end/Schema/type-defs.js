@@ -23,7 +23,16 @@ const typeDefs = gql`
     useCases: String
 
     #Design phase
-    image: [String]
+    image: [Images]
+  }
+
+  type Images {
+    imageTitle: String!
+    imagePath: String!
+  }
+  input ImagesInput {
+    imageTitle: String!
+    imagePath: String!
   }
 
   type Query {
@@ -52,7 +61,7 @@ const typeDefs = gql`
     useCases: String
 
     #Design phase
-    image: [String]
+    image: [ImagesInput]
   }
 
   input updateInput {
@@ -75,7 +84,7 @@ const typeDefs = gql`
     useCases: String
 
     #Design phase
-    image: [String]
+    image: [ImagesInput]
     
   }
 
