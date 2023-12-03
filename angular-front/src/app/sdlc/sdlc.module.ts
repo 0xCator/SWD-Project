@@ -5,6 +5,7 @@ import { InitiationPhaseComponent } from './initiation-phase/initiation-phase.co
 import { RequirementPhaseComponent } from './requirement-phase/requirement-phase.component';
 import { DesignPhaseComponent } from './design-phase/design-phase.component';
 import { FormListComponent } from './form-list/form-list.component';
+import { GraphQLModule } from 'src/app/graphql.module';
 @NgModule({
   declarations: [
     InitiationPhaseComponent,
