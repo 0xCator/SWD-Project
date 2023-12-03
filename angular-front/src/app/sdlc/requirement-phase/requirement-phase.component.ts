@@ -1,4 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import { GET_FORM } from 'src/app/graphQL/query';
+import { CREATE_FORM } from 'src/app/graphQL/mutation';
+import { initiation } from 'src/app/models/initiation';
 @Component({
   selector: 'app-requirement-phase',
   templateUrl: './requirement-phase.component.html',
@@ -12,18 +16,18 @@ export class RequirementPhaseComponent {
   SRS: string = '';
   useImage: string = '';
 
-  // @Output() saveForm: EventEmitter<any> = new EventEmitter<any>();
 
-  saveData(): void {
-    const formData = {
-      introduction: this.introduction,
-      purpose: this.purpose,
-      audience: this.audience,
-      description: this.description,
-      SRS: this.SRS,
-      useImage: this.useImage
-    };
-
-    // this.saveForm.emit({ phase: 'SRS', formData });
+  constructor(private apollo: Apollo) { }
+  saveForm() {
+    this.apollo.mutate<any>({
+        mutation: CREATE_FORM,
+        variables: {
+          "srs": {
+            "intro": this.introduction!,
+            "purpose": this.purpose!,
+            "audience": this.audience!,
+          }
+        },
+      })
   }
 }
