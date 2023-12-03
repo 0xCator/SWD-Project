@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { GET_FORM } from 'src/app/graphQL/query';
-import { initiationForm } from 'src/app/graphQL/mutation';
+import { CREATE_FORM } from 'src/app/graphQL/mutation';
 import { initiation } from 'src/app/models/initiation';
 @Component({
   selector: 'app-initiation-phase',
@@ -20,7 +20,7 @@ export class InitiationPhaseComponent {
   
   saveForm() {
     this.apollo.mutate<any>({
-        mutation: initiationForm,
+        mutation: CREATE_FORM,
         variables: {
           "initiation": {
             "title": this.title!,

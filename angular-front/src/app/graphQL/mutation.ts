@@ -1,14 +1,11 @@
 import { gql } from "apollo-angular";
 
-export const initiationForm = gql`
-mutation initiationForm() {
-    
-}
+export const CREATE_FORM = gql`
+mutation CreateUser($user: userInput) {
+    createUser(user: $user) {
+      id
+    }
+  }
 `;
 
-export const srsForm = gql`
-mutation srsForm() {
-    
-}
-`;
 
