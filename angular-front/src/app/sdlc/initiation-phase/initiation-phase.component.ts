@@ -1,33 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { GET_FORM } from 'src/app/graphQL/query';
-import { CREATE_FORM } from 'src/app/graphQL/mutation';
-import { initiation } from 'src/app/models/initiation';
+import { GET_INITIATION_QUERY,UPDATE_INITIATION_MUTATION } from 'src/app/graphQL/query';
+import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-initiation-phase',
   templateUrl: './initiation-phase.component.html',
-  styleUrls: ['./initiation-phase.component.css']
+  styleUrls: ['./initiation-phase.component.css'],
+
 })
-export class InitiationPhaseComponent {
-  title: string = '';
-  startDate: string = '';
-  endDate: string = '';
-  objectives: string = '';
-  managers: string = '';
-  information: string = '';
-  scopeStatements: string = '';
-  constructor(private apollo: Apollo) { }
-  
-  saveForm() {
-    this.apollo.mutate<any>({
-        mutation: CREATE_FORM,
-        variables: {
-          "initiation": {
-            "title": this.title!,
-            "startDate": this.startDate!,
-            "endDate": this.endDate!,
-          }
-        },
+export class InitiationPhaseComponent  implements OnInit{
+   initiationForm!: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private apollo: Apollo) {}
+
+  ngOnInit(): void {
+    this.initiationForm = this.formBuilder.group({
+      title: [''],
+      startDate: [null],
+      endDate: [null],
+      objective: [''],
+      manager: [''],
+      budget: [null],
+      scope: ['']
+    });
+
+    this.fetchInitiationData();
+  }
+
+  fetchInitiationData(): void {
+    this.apollo
+      .watchQuery<any>({
+        query: GET_INITIATION_QUERY
       })
+      .valueChanges.subscribe(({ data }) => {
+        const initiationData = data?.initiation;
+
+        if (initiationData) {
+          this.initiationForm?.patchValue(initiationData);
+        }
+      });
+  }
+
+  onSubmit(): void {
+    if (this.initiationForm?.valid) {
+      const input = this.initiationForm.value;
+
+      this.apollo
+        .mutate<any>({
+          mutation: UPDATE_INITIATION_MUTATION,
+          variables: { input }
+        })
+        .subscribe(({ data }) => {
+          const updatedInitiationData = data?.updateInitiation;
+
+          if (updatedInitiationData) {
+            this.initiationForm?.patchValue(updatedInitiationData);
+          }
+        });
+    }
   }
 }

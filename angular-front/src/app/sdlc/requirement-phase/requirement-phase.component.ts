@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { GET_FORM } from 'src/app/graphQL/query';
 import { CREATE_FORM } from 'src/app/graphQL/mutation';
 import { initiation } from 'src/app/models/initiation';
 @Component({

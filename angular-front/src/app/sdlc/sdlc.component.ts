@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule, FormBuilder, Form } from '@angular/forms';
+import { Apollo } from 'apollo-angular';
+import { GET_INITIATION_QUERY,UPDATE_INITIATION_MUTATION } from 'src/app/graphQL/query';
 @Component({
+
   selector: 'app-sdlc',
   templateUrl: './sdlc.component.html',
-  styleUrls: ['./sdlc.component.css']
+  styleUrls: ['./sdlc.component.css'],
+
 })
 export class SDLCComponent {
   selectedPhase: string = '';
@@ -12,8 +17,12 @@ export class SDLCComponent {
   savedForms: any[] = [];
   phases: string[] = ['Initiation', 'SRS', 'Design'];
 
-  constructor(private router: Router) {}
+  initiation!: FormGroup;
+  SRS!: FormGroup;
+  Design!: FormGroup;
 
+  constructor(private router: Router,private formBuilder:FormBuilder) {}
+  
   selectPhase(event: any): void {
     const phase = event.target.value;
     this.selectedPhase = phase;
@@ -22,42 +31,34 @@ export class SDLCComponent {
     this.router.navigate(['/sdlc', phase.toLowerCase()]);
   }
 
-  ngOnInit(): void {
-    this.savedForms = [
-      { phase: 'Initiation', formData: { /* initiation form data */ } },
-      { phase: 'SRS', formData: { /* SRs // data */ } },
-      { phase: 'Design', formData: { /* design // data */ } },
-    ];
-  }
 
   closeForm(): void {
     this.showForm = false;
     this.selectedPhase = '';
   }
-  /*
-  saveInitiationForm(): void {
-    const formData = { };// Get the form data for Initiation phase 
-    const savedForm = { phase: 'Initiation', formData };
-    this.savedForms.push(savedForm);
-  }
+  initiationForm = this.formBuilder.group({
+    title: [''],
+    startDate: [null],
+    endDate: [null],
+    objective: [''],
+    manager: [''],
+    budget: [null],
+    scope: ['']
+  });
+  SRSForm = this.formBuilder.group({
+    title: [''],
+    startDate: [null],
+    endDate: [null],
+    objective: [''],
+    manager: [''],
+    budget: [null],
+    scope: ['']
+  });
 
-  saveSRSForm(): void {
-    const formData = {  };// Get the form data for SRS phase 
-    const savedForm = { phase: 'SRS', formData };
-    this.savedForms.push(savedForm);
-  }
-
-  saveDesignForm(): void {
-    const formData = {  }; // Get the form data for Design phase
-    const savedForm = { phase: 'Design', formData };
-    this.savedForms.push(savedForm);
-  }
-  saveForm(event: any): void {
-    const savedForm = event;
-    this.savedForms.push(savedForm);
+  fetchInitiationData(): void {
     
-      // this.formList.push(savedForm);
   }
-  */
-  
+  onSubmit(): void {
+
+  }
 }

@@ -1,51 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-  
-  <form>
-    <div>
-      <label>Title</label>
-      <input [(ngModel)]="title" type="text">
-    </div>
-  
-    <div>
-      <label>Start Date</label>
-      <input [(ngModel)]="startDate" type="date">
-    </div>
-  
-    <div>
-      <label>End Date</label>
-      <input [(ngModel)]="endDate" type="date">
-    </div>
-  
-    <div>
-      <label>Objectives</label>
-      <textarea [(ngModel)]="objectives"></textarea>
-    </div>
-  
-    <div>
-      <label>Managers</label>
-      <input [(ngModel)]="managers" type="text">
-    </div>
-  
-    <div>
-      <label>Information</label>
-      <textarea [(ngModel)]="information"></textarea>
-    </div>
-  
-    <div>
-      <label>Scope Statements</label>
-      <textarea [(ngModel)]="scopeStatements"></textarea>
-    </div>
-    
-    <button (click)="saveForm()">Save</button>
-    <input type="reset" value="Reset">
-    
-  </form>
-</body>
-</html>
+<h2>Initiation Phase</h2>
+
+<form [formGroup]="initiationForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="title">Title:</label>
+    <input id="title" type="text" formControlName="title">
+  </div>
+
+  <div>
+    <label for="startDate">Start Date:</label>
+    <input id="startDate" type="date" formControlName="startDate">
+  </div>
+
+  <div>
+    <label for="endDate">End Date:</label>
+    <input id="endDate" type="date" formControlName="endDate">
+  </div>
+
+  <div>
+    <label for="objective">Objective:</label>
+    <textarea id="objective" formControlName="objective"></textarea>
+  </div>
+
+  <div>
+    <label for="manager">Manager:</label>
+    <input id="manager" type="text" formControlName="manager">
+  </div>
+
+  <div>
+    <label for="budget">Budget:</label>
+    <input id="budget" type="number" formControlName="budget">
+  </div>
+
+  <div>
+    <label for="scope">Scope:</label>
+    <textarea id="scope" formControlName="scope"></textarea>
+  </div>
+
+  <button type="submit" [disabled]="initiationForm.invalid">Save</button>
+</form>

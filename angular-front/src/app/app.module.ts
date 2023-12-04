@@ -13,8 +13,13 @@ import { InitiationPhaseComponent } from './sdlc/initiation-phase/initiation-pha
 import { DesignPhaseComponent } from './sdlc/design-phase/design-phase.component';
 import { RequirementPhaseComponent } from './sdlc/requirement-phase/requirement-phase.component';
 import { FormListComponent } from './sdlc/form-list/form-list.component';
+import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
 
-;
+import { ApolloModule, Apollo } from 'apollo-angular';
+
+
+
+
 
 const appRoutes: Routes = [
     {path: "", component: SDLCComponent},

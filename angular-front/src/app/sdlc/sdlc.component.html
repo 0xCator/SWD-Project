@@ -6,37 +6,84 @@
     <title>SDLC PHASES</title>
 </head>
 <body>
-  <div style="background-color: aqua; padding: 10px;">
-    <button *ngIf="!showForm" (click)="showForm = true">Create</button>
-    <select *ngIf="showForm" (change)="selectPhase($event)">
-      <option disabled selected>Select Phase</option>
-      <option *ngFor="let phase of phases" [value]="phase">{{ phase }}</option>
-    </select>
-    <button *ngIf="showForm" (click)="closeForm()">Close</button>
-  </div>
-      <div *ngIf="showForm"> <!--Class Form-->
-        <form>
-        
-          <div *ngIf="selectedPhase === 'Initiation'">
-            <app-initiation-phase></app-initiation-phase>
-            <!-- <button (click)="saveInitiationForm()">Save</button> -->
-          </div>
-          
-          <div *ngIf="selectedPhase === 'SRS'">
-            <app-requirement-phase></app-requirement-phase>
-            <!-- <app-requirement-phase (saveForm)="saveForm($event)"></app-requirement-phase> -->
-          </div>
-          
-          <div *ngIf="selectedPhase === 'Design'">
-            <app-design-phase></app-design-phase>
-            <!-- <app-design-phase (saveForm)="saveForm($event)"></app-design-phase> -->
-          </div>
-        </form>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2">
+        <app-form-list></app-form-list>
       </div>
-      
-      <!-- <div *ngIf="showFiles">
-       
-      </div> -->
+        <div class="col-sm-10">
+          <div style="background-color: aqua; padding: 10px;">
+            <button *ngIf="!showForm" (click)="showForm = true">Create</button>
+            <select *ngIf="showForm" (change)="selectPhase($event)">
+              <option disabled selected>Select Phase</option>
+              <option *ngFor="let phase of phases" [value]="phase">{{ phase }}</option>
+            </select>
+            <button *ngIf="showForm" (click)="closeForm()">Close</button>
+          </div>
+              <div *ngIf="showForm"> <!--Class Form-->
+                
+                
+                  <div *ngIf="selectedPhase === 'Initiation'">
+                    <h2>Initiation Phase</h2>
+<!-- 
+                      <form [formGroup]="initiation" (ngSubmit)="onSubmit()">
+                        <div>
+                          <label for="title">Title:</label>
+                          <input id="title" type="text" formControlName="title">
+                        </div>
+
+                        <div>
+                          <label for="startDate">Start Date:</label>
+                          <input id="startDate" type="date" formControlName="startDate">
+                        </div>
+
+                        <div>
+                          <label for="endDate">End Date:</label>
+                        <input id="endDate" type="date" formControlName="endDate">
+                      </div>
+
+                      <div>
+                        <label for="objective">Objective:</label>
+                        <textarea id="objective" formControlName="objective"></textarea>
+                      </div>
+
+                      <div>
+                        <label for="manager">Manager:</label>
+                        <input id="manager" type="text" formControlName="manager">
+                      </div>
+
+                      <div>
+                        <label for="budget">Budget:</label>
+                        <input id="budget" type="number" formControlName="budget">
+                      </div>
+
+                      <div>
+                        <label for="scope">Scope:</label>
+                        <textarea id="scope" formControlName="scope"></textarea>
+                      </div>
+
+                      <button type="submit" [disabled]="initiationForm.invalid">Save</button>
+                    </form> -->
+                            
+                  </div>
+                  
+                  <div *ngIf="selectedPhase === 'SRS'">
+                    <app-requirement-phase></app-requirement-phase>
+        
+                  </div>
+                  
+                  <div *ngIf="selectedPhase === 'Design'">
+                    <app-design-phase></app-design-phase>
+        
+                  </div>
+
+              </div>
+              
+      </div>
+    </div>
+  </div>
+  
+
     </body>
     </html>
    
