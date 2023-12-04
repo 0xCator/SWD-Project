@@ -9,7 +9,23 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-2">
-        <app-form-list></app-form-list>
+
+      <p>Initiation Forms</p>
+      <ul>
+        <div *ngFor="let initiationForm of initiationFormList">
+          <li>title: {{ initiationForm.title }}</li>
+          <li>budget: {{ initiationForm.budget }}</li>
+        </div>
+      </ul>
+
+      <p>SRS Forms</p>
+      <ul>
+      <div *ngFor="let srsForm of srsFormList">
+        <li>intro: {{ srsForm.introduction }}</li>
+        <li>srs: {{ srsForm.SRS }}</li>
+      </div>
+    </ul>
+
       </div>
         <div class="col-sm-10">
           <div style="background-color: aqua; padding: 10px;">
@@ -20,61 +36,105 @@
             </select>
             <button *ngIf="showForm" (click)="closeForm()">Close</button>
           </div>
-              <div *ngIf="showForm"> <!--Class Form-->
+              <div *ngIf="showForm"> 
                 
                 
                   <div *ngIf="selectedPhase === 'Initiation'">
-                    <h2>Initiation Phase</h2>
-<!-- 
-                      <form [formGroup]="initiation" (ngSubmit)="onSubmit()">
-                        <div>
-                          <label for="title">Title:</label>
-                          <input id="title" type="text" formControlName="title">
-                        </div>
-
-                        <div>
-                          <label for="startDate">Start Date:</label>
-                          <input id="startDate" type="date" formControlName="startDate">
-                        </div>
-
-                        <div>
-                          <label for="endDate">End Date:</label>
+                    <form [formGroup]="initiationForm" (ngSubmit)="onSubmitInitiation()">
+                      <div>
+                        <label for="title">Title:</label>
+                        <input id="title" type="text" formControlName="title">
+                      </div>
+                    
+                      <div>
+                        <label for="startDate">Start Date:</label>
+                        <input id="startDate" type="date" formControlName="startDate">
+                      </div>
+                    
+                      <div>
+                        <label for="endDate">End Date:</label>
                         <input id="endDate" type="date" formControlName="endDate">
                       </div>
-
+                    
                       <div>
                         <label for="objective">Objective:</label>
                         <textarea id="objective" formControlName="objective"></textarea>
                       </div>
-
+                    
                       <div>
                         <label for="manager">Manager:</label>
                         <input id="manager" type="text" formControlName="manager">
                       </div>
-
+                    
                       <div>
                         <label for="budget">Budget:</label>
                         <input id="budget" type="number" formControlName="budget">
                       </div>
-
+                    
                       <div>
                         <label for="scope">Scope:</label>
                         <textarea id="scope" formControlName="scope"></textarea>
                       </div>
-
-                      <button type="submit" [disabled]="initiationForm.invalid">Save</button>
-                    </form> -->
-                            
+                      <button (click)="onSubmitInitiation()">Save</button>
+                      
+                      <input type="reset" value="Reset">
+                    </form>
+                   
                   </div>
                   
                   <div *ngIf="selectedPhase === 'SRS'">
-                    <app-requirement-phase></app-requirement-phase>
+                    <form [formGroup]="srsForm" (ngSubmit)="onSubmitSRS()">
+                      <div>
+                        <label>introduction</label>
+                        <input type="text" formControlName="introduction">
+                    </div>
+                      <div>
+                          <label>purpose</label>
+                          <input type="text" formControlName="purpose">
+                      </div>
+                      <div>
+                          <label>audience</label>
+                          <input type="text" formControlName="audience">
+                      </div>
+                      <div>
+                          <label>description</label>
+                          <input type="text" formControlName="description">
+                      </div>
+                      <div>
+                          <label>SRS</label>
+                          <textarea type="text" formControlName="SRS"></textarea>
+                      </div>
+                      <label>usecase</label>
+                      <input type="file" id="myfile" name="myfile">
+                      <br><br>    
+                      <button (click)="onSubmitSRS()">Save</button>
+                      <input type="reset" value="Reset">
+                  </form> 
         
                   </div>
                   
                   <div *ngIf="selectedPhase === 'Design'">
-                    <app-design-phase></app-design-phase>
-        
+                    <form [formGroup]="designForm" (ngSubmit)="onImageChange">
+                      <div>
+                        <label for="fileNames">File Names:</label>
+                        <div *ngFor="let fileName of fileNames.controls; let i = index">
+                          <input type="text" [formControlName]="i">
+                        </div>
+                        <button type="button" (click)="addFileName()">Add File Name</button>
+                      </div>
+                  
+                      <div>
+                        <label for="images">Images:</label>
+                        <div *ngFor="let image of images.controls; let i = index">
+                          <input type="file" (change)="onImageChange($event, i)">
+                          <img [src]="image.value" *ngIf="image.value">
+                        </div>
+                        <button type="button" (click)="addImageInput()">Add Image</button>
+                      </div>
+                  
+                      <button type="submit">Save</button>
+                      <input type="reset" value="Reset">
+                    </form>
                   </div>
 
               </div>
