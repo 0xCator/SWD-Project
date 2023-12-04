@@ -2,6 +2,8 @@ const { gql } = require("apollo-server-express");
 
 // schema
 const typeDefs = gql`
+  scalar Upload
+
   type Document {
     id: ID!
     docType: String!    
