@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, FormBuilder,FormArray, Form } from '@angular/forms';
 import { Apollo } from 'apollo-angular';
 import { GET_INITIATION_QUERY,UPDATE_INITIATION_MUTATION } from 'src/app/graphQL/query';
-import { initiation, srsClass} from 'src/models/Form';
+import { design, initiation, srsClass} from 'src/models/Form';
 import { FormService } from 'src/services/form.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class SDLCComponent {
   //form-list
   initList: initiation[] = [];
   srsList: srsClass[] = [];
-
+  designList: design[] = [];
 
   initiationForm = this.formBuilder.group({
     title: '',
@@ -45,10 +45,8 @@ export class SDLCComponent {
   })  
 
   designForm = this.formBuilder.group({
-    fileNames: this.formBuilder.array([]),
-    images: this.formBuilder.array([])
+    filePairs: this.formBuilder.array([this.createFilePair()])
   });
-
   constructor(private router: Router,private formBuilder:FormBuilder, private formservice:FormService) {}
 
   selectPhase(
@@ -67,26 +65,7 @@ export class SDLCComponent {
   
   
 
-  get fileNames() {
-    return this.designForm.get('fileNames') as FormArray;
-  }
-  
-  get images() {
-    return this.designForm.get('images') as FormArray;
-  }
-  
-  addFileName() {
-    this.fileNames.push(this.formBuilder.control(''));
-  }
-  
-  addImage(event: any) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.images.push(this.formBuilder.control(reader.result));
-    };
-    reader.readAsDataURL(file);
-  }
+ 
 
   fetchInitiationData(): void {
     
@@ -94,7 +73,7 @@ export class SDLCComponent {
   initiationFormList: initiation[] = [];
   srsFormList: srsClass[] = [];
   ngOnInit() {
-    this.initiationFormList = this.formservice.getinitiationForms();
+    this.initiationFormList = this.formservice.getInitiationForms();
     this.srsFormList = this.formservice.getSRSForms();
   }
 
@@ -110,17 +89,69 @@ export class SDLCComponent {
     console.log(this.srsForm.value);
   }
 
-  onImageChange(event: any, index: number): void {
+  deleteInitiationForm(index: number): void {
+    this.formservice.deleteInitiationForm(index);
+  }
+
+  deleteSRSForm(index: number): void {
+    this.formservice.deleteSRSForm(index);
+  }
+
+  editInitiationForm(index: number): void {
+    const updatedInitiation = this.initList[index];
+    // Perform any necessary operations for editing the form
+    // For example, you can navigate to a different component with the form data
+    this.router.navigate(['/edit-initiation', index]);
+  }
+
+  editSRSForm(index: number): void {
+    const updatedSRS = this.srsList[index];
+    // Perform any necessary operations for editing the form
+    // For example, you can navigate to a different component with the form data
+    this.router.navigate(['/edit-srs', index]);
+  }
+  onSubmitDesignForm(): void {
+    if (this.designForm.valid) {
+      const formValue = this.designForm.value;
+      const filePairs = formValue.filePairs ? formValue.filePairs.map((pair: any) => ({
+        fileName: pair.fileName,
+        imagePath: pair.imagePath
+      })) : [];
+  
+      const designData: design = {
+        fileName: filePairs.map((pair: any) => pair.fileName),
+        imagePath: filePairs.map((pair: any) => pair.imagePath)
+      };
+  
+      this.formservice.saveDesign(designData);
+      this.designForm.reset();
+    }
+  }
+  createFilePair(): FormGroup {
+    return this.formBuilder.group({
+      fileName: '',
+      imagePath: ''
+    });
+  }
+  
+  addFilePair(): void {
+    const filePairs = this.designForm.get('filePairs') as FormArray;
+    filePairs.push(this.createFilePair());
+  }
+  
+  removeFilePair(index: number): void {
+    const filePairs = this.designForm.get('filePairs') as FormArray;
+    filePairs.removeAt(index);
+  }
+  addImage(event: any, index: number) {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = () => {
       const imagePath = reader.result as string;
-      this.images.controls[index].patchValue(imagePath);
+      const filePairs = this.designForm.get('filePairs') as FormArray;
+      filePairs.controls[index]?.get('imagePath')?.setValue(imagePath);
     };
     reader.readAsDataURL(file);
   }
   
-  addImageInput(): void {
-    this.images.push(this.formBuilder.control(''));
-  }
 }

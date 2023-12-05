@@ -1,26 +1,57 @@
-import { Form } from "@angular/forms";
 import { Injectable } from '@angular/core';
-import { initiation, srsClass } from "src/models/Form";
-@Injectable({providedIn: "root"})
+import { design, initiation, srsClass } from "src/models/Form";
+
+@Injectable({ providedIn: "root" })
 export class FormService {
+  init: initiation[] = [
+    { budget: 1, title: "init title" },
+  ];
+  srs: srsClass[] = [
+    { introduction: "srs intro" },
+  ];
+  design: design[] = [];
 
-    init: initiation[] = [
-        { budget: 1, title: "init title" },
-    ];
-    srs: srsClass[] = [
-        { introduction: "srs intro" },
-    ];
+  saveInitiation(initObj: initiation) {
+    this.init.push(initObj);
+  }
 
-    saveInitiation(initObj: initiation) {
-        this.init.push(initObj);
+  saveSRS(srsObj: srsClass) {
+    this.srs.push(srsObj);
+  }
+
+  saveDesign(designObj: design) {
+    this.design.push(designObj);
+  }
+
+  getInitiationForms() {
+    return this.init.slice();
+  }
+
+  getSRSForms() {
+    return this.srs.slice();
+  }
+
+  editInitiationForm(index: number, updatedInitiation: initiation) {
+    if (index >= 0 && index < this.init.length) {
+      this.init[index] = updatedInitiation;
     }
-    saveSRS(srsObj: srsClass) {
-        this.srs.push(srsObj);
+  }
+
+  editSRSForm(index: number, updatedSRS: srsClass) {
+    if (index >= 0 && index < this.srs.length) {
+      this.srs[index] = updatedSRS;
     }
-    getinitiationForms(){
-        return this.init.slice();
+  }
+
+  deleteInitiationForm(index: number) {
+    if (index >= 0 && index < this.init.length) {
+      this.init.splice(index, 1);
     }
-    getSRSForms(){
-        return this.srs.slice();
+  }
+
+  deleteSRSForm(index: number) {
+    if (index >= 0 && index < this.srs.length) {
+      this.srs.splice(index, 1);
     }
+  }
 }

@@ -35,3 +35,16 @@ export class srsClass {
       this.useImage = useImage;
     }
   }
+  export class design {
+    fileName?: string[];
+    imagePath?: string[];
+  
+    constructor(fileName?: string[], imagePath?: string[]) {
+      this.fileName = fileName;
+      this.imagePath = imagePath;
+    }
+  }
+  export interface Image {
+    id: number;
+    url: string;
+  }
