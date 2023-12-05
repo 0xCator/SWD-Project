@@ -9,10 +9,6 @@ import { SDLCModule } from "./sdlc/sdlc.module";
 import { FormsModule } from '@angular/forms';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
-import { InitiationPhaseComponent } from './sdlc/initiation-phase/initiation-phase.component';
-import { DesignPhaseComponent } from './sdlc/design-phase/design-phase.component';
-import { RequirementPhaseComponent } from './sdlc/requirement-phase/requirement-phase.component';
-import { FormListComponent } from './sdlc/form-list/form-list.component';
 import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
 
 import { ApolloModule, Apollo } from 'apollo-angular';
@@ -22,7 +18,6 @@ import { ApolloModule, Apollo } from 'apollo-angular';
 
 
 const appRoutes: Routes = [
-    {path: "", component: SDLCComponent},
     {path: "sdlc", component: SDLCComponent},
     {path: "all-files", component: AllFilesComponent},
 ]
@@ -36,11 +31,7 @@ const appRoutes: Routes = [
     bootstrap: [
         AppComponent,
         SDLCComponent,
-        AllFilesComponent,
-        InitiationPhaseComponent,
-        DesignPhaseComponent,
-        RequirementPhaseComponent,
-        FormListComponent
+        AllFilesComponent,        
     ],
     imports: [
         BrowserModule,
@@ -50,6 +41,7 @@ const appRoutes: Routes = [
         FormsModule,
         GraphQLModule,
         HttpClientModule,
+        ReactiveFormsModule,
     ],
 })
 export class AppModule { }

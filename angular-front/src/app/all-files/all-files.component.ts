@@ -1,33 +1,26 @@
 import { Component } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { GET_IMAGES_QUERY } from 'src/app/graphQL/query';
+
+import { Injectable } from '@angular/core';
+import { Image } from 'src/models/Form';
 @Component({
   selector: 'app-all-files',
   templateUrl: './all-files.component.html',
   styleUrls: ['./all-files.component.css']
 })
+
 export class AllFilesComponent {
-forms: any;
+  
+  images: Image[] = [];
+  selectedImage: Image | null = null;
 
+  // constructor(private imageService: ImageService) {}
 
-  images: any[] = [];
+  // ngOnInit() {
+  //   this.images = this.imageService.getImages();
+  // }
 
-  constructor(private apollo: Apollo) { }
-
-  ngOnInit(): void {
-    this.fetchImages();
-  }
-
-  fetchImages(): void {
-    this.apollo
-      .watchQuery<any>({
-        query: GET_IMAGES_QUERY
-      })
-      .valueChanges.subscribe(({ data }) => {
-        this.images = data?.images;
-      });
-  }
-  selectForm(form:any) {//to show up the phase's image 
-
-  }
+  // selectImage(image: Image): void {
+  //   this.selectedImage = image;
+  // }
 }
