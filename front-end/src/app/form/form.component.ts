@@ -8,6 +8,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { CommonModule } from '@angular/common';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-form',
@@ -23,7 +24,7 @@ export class FormComponent implements OnInit{
   SRSForm!: FormGroup;
   DesignForm!: FormGroup;
   phase: string =''
-  constructor(private formBuilder: FormBuilder){}
+  constructor(private formBuilder: FormBuilder, private sc:SharedService){}
   ngOnInit(): void {
     this.InitiationForm = this.formBuilder.group({
       title:'',
@@ -45,5 +46,8 @@ export class FormComponent implements OnInit{
   }
   handleButtonClick(buttonValue: string) {
     this.phase = buttonValue;
+  }
+  save(){
+    this.sc.updateSharedVariable(false)
   }
 }
