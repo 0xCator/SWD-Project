@@ -15,7 +15,7 @@ declarations: [
         BrowserModule,
         MatFormFieldModule,
         MatInputModule,
-        // ReactiveFormsModule,
+        ReactiveFormsModule,
     ],
 
     bootstrap:[AppComponent]
