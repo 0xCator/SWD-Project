@@ -2,7 +2,7 @@
     <mat-button-toggle-group name="Phase" aria-label="Phase">
         <mat-button-toggle (click)="handleButtonClick('InitiationForm')" value="InitiationForm">Initiation</mat-button-toggle>
         <mat-button-toggle (click)="handleButtonClick('SRSForm')" value="SRSForm">SRS</mat-button-toggle>
-        <mat-button-toggle (click)="handleButtonClick('Design')" value="Design">Design</mat-button-toggle>
+        <mat-button-toggle (click)="handleButtonClick('DesignForm')" value="Design">Design</mat-button-toggle>
     </mat-button-toggle-group>
 </div>
 
@@ -25,29 +25,32 @@
         <mat-datepicker #endDate></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="Project Objective" formControlName="objectives">
+        <input matInput placeholder="Project Objective" formControlName="objectives" required>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="Project Manager" formControlName="manager">
+        <input matInput placeholder="Project Manager" formControlName="manager" required>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="Project Scope Statements" formControlName="scope">
+        <input matInput placeholder="Project Budget" formControlName="budget" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Project Scope Statements" formControlName="scope" required>
     </mat-form-field>
     <hr>
     <div>
-    <button mat-raised-button (click)="save()" type="submit">Submit</button>
+    <button mat-raised-button (click)="save()" type="submit" [disabled]="!InitiationForm.valid">Submit</button>
     <button mat-raised-button type="reset">Reset</button>
     </div>
 </form>
 <form *ngIf="phase === 'SRSForm'" [formGroup]="SRSForm" class="form">
     <mat-form-field>
-        <input matInput placeholder="Project Introduction" formControlName="introduction">
+        <input matInput placeholder="Project Introduction" formControlName="introduction" required>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="Intended Audience" formControlName="audience">
+        <input matInput placeholder="Intended Audience" formControlName="audience" required>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="Overall Description of the software" formControlName="description">
+        <input matInput placeholder="Overall Description of the software" formControlName="description" required>
     </mat-form-field>
     <mat-label>
         System Features & Requirements
@@ -58,16 +61,36 @@
         </ol>
     </mat-label>
     <mat-form-field>
-        <textarea matInput placeholder="System Features & Requirements" formControlName="featuresAndRequirements">
+        <textarea matInput placeholder="System Features & Requirements" formControlName="featuresAndRequirements" required>
         </textarea>
     </mat-form-field>
     <div>
         <label for="UseCaseDiagram">Use Case</label>
-        <input type="file" id="UseCaseDiagram" formControlName="useCase">
-    </div>
+        <input type="file" id="UseCaseDiagram" formControlName="useCase" required>
+    </div> 
     <br>
     <div>
-        <button mat-raised-button (click)="save()" type="submit">Submit</button>
+    <button mat-raised-button (click)="save()" type="submit" [disabled]="!SRSForm.valid">Submit</button>
         <button mat-raised-button type="reset">Reset</button>
     </div>
+</form>
+
+<form *ngIf="phase === 'DesignForm'" [formGroup]="DesignForm">
+    <div formArrayName="files">
+        <div *ngFor="let files of designForms.controls; let i=index" [formGroupName]="i">
+            <mat-form-field>
+                <input matInput placeholder="File Name" formControlName="filename" required>
+            </mat-form-field>
+            <div>
+                <input type="file" id="ImageFile" formControlName="imagefile" required>
+            </div>
+            <button mat-raised-button color="warn" (click)="removeDesignForm(i)">Remove</button>
+        </div>
+    </div>
+    <button mat-raised-button (click)="addDesignForm()">Add</button>
+    <div>
+        <button mat-raised-button (click)="save()" type="submit" [disabled]="!DesignForm.valid || designForms.length === 0">Submit</button>
+        <button mat-raised-button type="reset">Reset</button>
+    </div>
+
 </form>
