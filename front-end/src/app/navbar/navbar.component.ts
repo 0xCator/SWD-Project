@@ -4,6 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 
+import {RouterModule} from '@angular/router';
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -12,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     CommonModule,
     MatButtonModule,
+    RouterModule,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'

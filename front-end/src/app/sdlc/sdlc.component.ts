@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatTableModule } from '@angular/material/table'
 import { FormComponent } from '../form/form.component';
 import { SharedService } from '../services/shared.service';
+import { Document } from '../modules/document.module';
 
 @Component({
   selector: 'app-sdlc',
@@ -18,23 +19,30 @@ import { SharedService } from '../services/shared.service';
 })
 export class SdlcComponent implements OnInit{
   docForm = false
-  constructor(private sc: SharedService) {}
-  cardList = [
-    { title: 'Card 1' },
-    { title: 'Card 2' },
-    { title: 'Card 3' },
-  ];
+  docList!: Document[]
+  constructor(private sc: SharedService) {
+    this.docList = [];
+    this.docList.length = 0;
+
+  }
   ngOnInit(): void {
-    this.sc.sharedVariable$.subscribe((value)=>{
+    this.sc.sharedDocForm.subscribe((value)=>{
       this.docForm = value;
+    })
+    this.sc.sharedDoc.subscribe((value)=>{
+      this.docList.push(value);
     })
   }
 
-  cardClicked(card: any) {
-    console.log(card);
+  cardClicked(doc: Document) {
+    console.log(doc);
   }
   createDoc(){
     this.docForm= true;
   }
+  isObjectEmpty(obj: Document): boolean {
+    return Object.keys(obj).length === 0;
+  }
+
 
 }

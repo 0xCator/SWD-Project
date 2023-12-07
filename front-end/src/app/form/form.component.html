@@ -47,6 +47,9 @@
         <input matInput placeholder="Project Introduction" formControlName="introduction" required>
     </mat-form-field>
     <mat-form-field>
+        <input matInput placeholder="Project Purpose" formControlName="purpose" required>
+    </mat-form-field>
+    <mat-form-field>
         <input matInput placeholder="Intended Audience" formControlName="audience" required>
     </mat-form-field>
     <mat-form-field>
@@ -67,7 +70,7 @@
     <div>
         <label for="UseCaseDiagram">Use Case</label>
         <input type="file" id="UseCaseDiagram" formControlName="useCase" required>
-    </div> 
+    </div>
     <br>
     <div>
     <button mat-raised-button (click)="save()" type="submit" [disabled]="!SRSForm.valid">Submit</button>

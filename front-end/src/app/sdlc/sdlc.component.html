@@ -1,11 +1,20 @@
 <div class="container">
   <div class="card-list-container">
     <button mat-raised-button color="primary" class="card-button" (click)="createDoc()">Create</button>
-    <mat-card *ngFor="let card of cardList" (click)="cardClicked(card)">
-      <mat-card-content>
-        {{ card.title }}
-      </mat-card-content>
-    </mat-card>
+    <ng-container *ngFor="let doc of docList">
+      <mat-card *ngIf="!isObjectEmpty(doc)" (click)="cardClicked(doc)">
+        <ng-container *ngIf="doc.docType === 'Initiation'">
+        <mat-card-content>
+          {{ doc.title }}
+        </mat-card-content>
+        </ng-container>
+        <ng-container *ngIf="doc.docType === 'SRS'">
+        <mat-card-content>
+          {{ doc.intro}}
+        </mat-card-content>
+        </ng-container>
+      </mat-card>
+    </ng-container>
   </div>
   <div *ngIf="docForm" class="form-container">
     <mat-card>
