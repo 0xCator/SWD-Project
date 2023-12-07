@@ -25,7 +25,7 @@ const DocumentSchema = new mongoose.Schema({
         optional: true,
     },
     budget: {
-        type: Number,
+        type: String,
         optional: true,
     },
     scope: {

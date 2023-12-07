@@ -69,7 +69,7 @@
     </mat-form-field>
     <div>
         <label for="UseCaseDiagram">Use Case</label>
-        <input type="file" id="UseCaseDiagram" formControlName="useCase" required>
+        <input type="file" (change)="handleSRSFile($event)" id="UseCaseDiagram" formControlName="useCase" required>
     </div>
     <br>
     <div>

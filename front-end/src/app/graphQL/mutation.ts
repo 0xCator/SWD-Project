@@ -7,3 +7,10 @@ mutation CreateDocument($document: documentInput) {
   }
 }`;
 
+export const UPLOAD_FILE = gql`
+mutation Mutation($file: Upload!) {
+  uploadFile(file: $file) {
+    url
+  }
+}
+`;

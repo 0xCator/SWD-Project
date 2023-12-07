@@ -1,4 +1,19 @@
+const Upload = require('graphql-upload/GraphQLUpload.js');
 const { Document } = require("../Models/document.model");
+const path = require("path");
+const fs = require("fs");
+
+function generateRandomString(length) {
+    let result = "";
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+  }
 
 const resolvers = {
     Query: {
@@ -53,7 +68,21 @@ const resolvers = {
             const { id } = args;
             await Document.findByIdAndDelete(id);
             return "Document deleted";
-        }
+        },
+        uploadFile: async (_, args) => {
+            const { createReadStream, filename} = await args.file;
+      
+            const { ext, name } = path.parse(filename);
+            const randomName = generateRandomString(12) + ext;
+      
+            const stream = createReadStream();
+            const pathName = path.join(__dirname, "..", `/public/images/${randomName}`);
+            await stream.pipe(fs.createWriteStream(pathName));
+      
+            return {
+              url: `http://localhost:4000/images/${randomName}`,
+            };
+          },
     }
 };
 

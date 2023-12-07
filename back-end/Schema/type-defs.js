@@ -13,7 +13,7 @@ const typeDefs = gql`
     endDate: String
     objective: String
     manager: String
-    budget: Float
+    budget: String
     scope: String
 
     #Requirement phase
@@ -37,6 +37,10 @@ const typeDefs = gql`
     imagePath: String!
   }
 
+  type File {
+    url: String!
+  }
+
   type Query {
     getAllDocuments: [Document]
     getDocument(id: ID!): Document 
@@ -51,7 +55,7 @@ const typeDefs = gql`
     endDate: String
     objective: String
     manager: String
-    budget: Float
+    budget: String
     scope: String
 
     #Requirement phase
@@ -74,7 +78,7 @@ const typeDefs = gql`
     endDate: String
     objective: String
     manager: String
-    budget: Float
+    budget: String
     scope: String
 
     #Requirement phase
@@ -94,6 +98,7 @@ const typeDefs = gql`
     createDocument(document: documentInput): Document
     updateDocument(id: ID!, document: updateInput): Document
     deleteDocument(id: ID!): String
+    uploadFile(file: Upload!): File!
   }
 `;
 
