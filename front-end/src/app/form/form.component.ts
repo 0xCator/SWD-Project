@@ -10,11 +10,14 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { SharedService } from '../services/shared.service';
 import { Document } from '../models/document.module';
+import {Apollo } from 'apollo-angular';
+import { ApolloModule} from 'apollo-angular';
+import { CREATE_DOC } from '../graphQL/mutation';
 
 @Component({
   selector: 'app-form',
   standalone:true,
-  imports: [ReactiveFormsModule, MatFormFieldModule,MatInputModule,MatSelectModule,MatButtonToggleModule,CommonModule,MatDatepickerModule,MatNativeDateModule,MatButtonModule],
+  imports: [ReactiveFormsModule,ApolloModule, MatFormFieldModule,MatInputModule,MatSelectModule,MatButtonToggleModule,CommonModule,MatDatepickerModule,MatNativeDateModule,MatButtonModule],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css'
 })
@@ -26,7 +29,8 @@ export class FormComponent implements OnInit{
   DesignForm!: FormGroup;
   phase: string =''
   doc: Document = new Document();
-  constructor(private formBuilder: FormBuilder, private sc:SharedService){}
+  constructor(private formBuilder: FormBuilder, private sc:SharedService,
+             private apollo: Apollo){}
   ngOnInit(): void {
     this.InitiationForm = this.formBuilder.group({
       title:['', Validators.required],
@@ -71,28 +75,86 @@ export class FormComponent implements OnInit{
     this.phase = buttonValue;
   }
   save(){
-    if(this.phase === "InitiationForm"){
-      this.doc.docType = "Initiation";
-      this.doc.title = this.InitiationForm.value.title;
-      this.doc.startDate = this.InitiationForm.value.startDate;
-      this.doc.endDate = this.InitiationForm.value.endDate;
-      this.doc.objective = this.InitiationForm.value.objectives;
-      this.doc.manager = this.InitiationForm.value.manager;
-      this.doc.budget = this.InitiationForm.value.budget;
-      this.doc.scope = this.InitiationForm.value.scope;
-    }else if(this.phase === "SRSForm"){
-      this.doc.docType = "SRS";
-      this.doc.intro = this.SRSForm.value.introduction;
-      this.doc.purpose = this.SRSForm.value.purpose;
-      this.doc.intendedAudience = this.SRSForm.value.audience;
-      this.doc.description = this.SRSForm.value.description;
-      this.doc.srs = this.SRSForm.value.featuresAndRequirements;
-      this.doc.useCases = this.SRSForm.value.useCase;
-    }else if(this.phase === "DesignForm"){
-      this.doc.docType = "Design";
-      this.doc.image = this.DesignForm.value.files;
-    }
-    this.sc.updateSharedVariable(false, this.doc);
+
+    this.apollo.mutate({
+      mutation: CREATE_DOC,
+      variables: {
+        "document": {
+          "docType": this.phase,
+          "title": this.InitiationForm.value.title,
+          "startDate": this.InitiationForm.value.startDate,
+          "endDate": this.InitiationForm.value.endDate,
+          "objective":this.InitiationForm.value.objectives,
+          "manager": this.InitiationForm.value.manager,
+          "budget": this.InitiationForm.value.budget,
+          "scope": this.InitiationForm.value.scope,
+        }
+      }
+      }).subscribe(({data}) => {
+        console.log(data);
+      }, (error) => {
+        console.log('there was an error sending the query', error);
+      }
+    );
+
+    // if(this.phase === 'Initiation'){
+    //   this.apollo.mutate({
+    //     mutation: CREATE_DOC,
+    //     variables: {
+    //       document: {
+    //         docType: 'Initiation',
+    //         title: this.InitiationForm.value.title,
+    //         startDate: this.InitiationForm.value.startDate,
+    //         endDate: this.InitiationForm.value.endDate,
+    //         objective: this.InitiationForm.value.objectives,
+    //         manager: this.InitiationForm.value.manager,
+    //         budget: this.InitiationForm.value.budget,
+    //         scope: this.InitiationForm.value.scope,
+    //       }
+    //     }
+    //     }).subscribe(({data}) => {
+    //       console.log(data);
+    //     }, (error) => {
+    //       console.log('there was an error sending the query', error);
+    //     }
+    //   );
+    // }else if(this.phase === 'SRS'){
+    //   this.apollo.mutate({
+    //     mutation: CREATE_DOC,
+    //     variables: {
+    //       document: {
+    //         docType: 'SRS',
+    //         intro: this.SRSForm.value.introduction,
+    //         purpose: this.SRSForm.value.purpose,
+    //         intendedAudience: this.SRSForm.value.audience,
+    //         description: this.SRSForm.value.description,
+    //         srs: this.SRSForm.value.featuresAndRequirements,
+    //         useCases: this.SRSForm.value.useCase
+    //       }
+    //     }
+    //     }).subscribe(({data}) => {
+    //       console.log(data);
+    //     }, (error) => {
+    //       console.log('there was an error sending the query', error);
+    //     }
+    //   );
+    // }else if(this.phase === 'Design'){
+    //   this.apollo.mutate({
+    //     mutation: CREATE_DOC,
+    //     variables: {
+    //       document: {
+    //         docType: 'Design',
+    //         image: this.DesignForm.value.files
+    //       }
+    //     }
+    //     }).subscribe(({data}) => {
+    //       console.log(data);
+    //     }, (error) => {
+    //       console.log('there was an error sending the query', error);
+    //     }
+    //   );
+    // }
+    // this.sc.updateSharedVariable(true, this.doc);
 
   }
 }

@@ -9,6 +9,7 @@ import { MatTableModule } from '@angular/material/table'
 import { FormComponent } from '../form/form.component';
 import { SharedService } from '../services/shared.service';
 import { Document } from '../models/document.module';
+import { Apollo } from 'apollo-angular';
 
 @Component({
   selector: 'app-sdlc',
