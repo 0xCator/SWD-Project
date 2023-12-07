@@ -11,13 +11,15 @@ import { MatSelectModule } from '@angular/material/select'
 import {MatButtonModule} from '@angular/material/button'
 import { SdlcComponent } from './sdlc/sdlc.component'
 import {NavbarComponent} from './navbar/navbar.component'
+import {FilesComponent} from './files/files.component'
 
 @NgModule({
 declarations: [
     AppComponent,
     FormComponent,
     SdlcComponent,
-    NavbarComponent
+    NavbarComponent,
+    FilesComponent
 ],
     imports:[
         BrowserModule,

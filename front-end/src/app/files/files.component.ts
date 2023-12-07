@@ -6,18 +6,25 @@ import {MatButtonModule} from '@angular/material/button'
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatTableModule } from '@angular/material/table'
-import { FormComponent } from '../form/form.component';
 import { SharedService } from '../services/shared.service';
 import { Document } from '../models/document.module';
 
 @Component({
-  selector: 'app-sdlc',
-  standalone:true,
-  imports: [CommonModule, MatCardModule, MatIconModule,FormComponent, MatSelectModule, MatButtonModule, MatFormFieldModule, MatTableModule],
-  templateUrl: './sdlc.component.html',
-  styleUrl: './sdlc.component.css'
+  selector: 'app-files',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatIconModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatTableModule
+  ],
+  templateUrl: './files.component.html',
+  styleUrl: './files.component.css'
 })
-export class SdlcComponent implements OnInit{
+export class FilesComponent {
   docForm = false
   docList!: Document[]
   constructor(private sc: SharedService) {
@@ -43,6 +50,4 @@ export class SdlcComponent implements OnInit{
   isObjectEmpty(obj: Document): boolean {
     return Object.keys(obj).length === 0;
   }
-
-
 }

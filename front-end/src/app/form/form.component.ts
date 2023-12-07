@@ -9,7 +9,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { SharedService } from '../services/shared.service';
-import { Document } from '../modules/document.module';
+import { Document } from '../models/document.module';
 
 @Component({
   selector: 'app-form',

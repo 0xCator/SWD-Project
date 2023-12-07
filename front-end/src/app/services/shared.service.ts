@@ -1,7 +1,7 @@
 // shared.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Document } from '../modules/document.module';
+import { Document } from '../models/document.module';
 
 @Injectable({
   providedIn: 'root',
