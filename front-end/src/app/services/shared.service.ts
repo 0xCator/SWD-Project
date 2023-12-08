@@ -12,9 +12,9 @@ export class SharedService {
   sharedDocForm= this.docForm.asObservable();
   sharedDoc = this.doc.asObservable();
 
-  updateSharedVariable(newValue: boolean, newDoc: Document) {
+  updateSharedVariable(newValue: boolean) {
     this.docForm.next(newValue);
-    this.doc.next(newDoc);
+
   }
 }
 

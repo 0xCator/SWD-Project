@@ -3,12 +3,12 @@
     <button mat-raised-button color="primary" class="card-button" (click)="createDoc()">Create</button>
     <ng-container *ngFor="let doc of docList">
       <mat-card *ngIf="!isObjectEmpty(doc)" (click)="cardClicked(doc)">
-        <ng-container *ngIf="doc.docType === 'Initiation'">
+        <ng-container *ngIf="doc.docType === 'InitiationForm'">
         <mat-card-content>
           {{ doc.title }}
         </mat-card-content>
         </ng-container>
-        <ng-container *ngIf="doc.docType === 'SRS'">
+        <ng-container *ngIf="doc.docType === 'SRSForm'">
         <mat-card-content>
           {{ doc.intro}}
         </mat-card-content>

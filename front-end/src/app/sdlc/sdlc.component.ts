@@ -10,6 +10,7 @@ import { FormComponent } from '../form/form.component';
 import { SharedService } from '../services/shared.service';
 import { Document } from '../models/document.module';
 import { Apollo } from 'apollo-angular';
+import { GET_ALL_DOC } from '../graphQL/query';
 
 @Component({
   selector: 'app-sdlc',
@@ -20,20 +21,24 @@ import { Apollo } from 'apollo-angular';
 })
 export class SdlcComponent implements OnInit{
   docForm = false
-  docList!: Document[]
-  constructor(private sc: SharedService) {
-    this.docList = [];
-    this.docList.length = 0;
+  update = false;
+  docList: Document[]= [];
+  constructor(private sc: SharedService, private apollo: Apollo) {
 
   }
   ngOnInit(): void {
     this.sc.sharedDocForm.subscribe((value)=>{
       this.docForm = value;
     })
-    this.sc.sharedDoc.subscribe((value)=>{
-      this.docList.push(value);
+    setInterval(()=>{
+    this.apollo.query<any>({
+      query: GET_ALL_DOC
+    }).subscribe(({data})=>{
+      this.docList = data.getAllDocuments ;
     })
+    }, 200)
   }
+
 
   cardClicked(doc: Document) {
     console.log(doc);

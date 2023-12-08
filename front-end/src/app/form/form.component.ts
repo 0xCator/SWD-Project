@@ -179,7 +179,7 @@ export class FormComponent implements OnInit{
         }
       );
     }
-    this.sc.updateSharedVariable(true, this.doc);
+    this.sc.updateSharedVariable(false);
     this.DesignFiles = [];
     this.SRSFile="";
   }
