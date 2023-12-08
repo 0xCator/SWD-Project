@@ -17,6 +17,6 @@ export class Document{
   srs!: string;
   useCases!: string;
 
-  image!: string[];
-
+  filename!:any;
+  imagefile!: string[];
 }

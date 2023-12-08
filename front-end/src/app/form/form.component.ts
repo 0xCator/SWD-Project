@@ -24,8 +24,9 @@ export class FormComponent implements OnInit{
   InitiationForm!: FormGroup;
   SRSForm!: FormGroup;
   DesignForm!: FormGroup;
-  phase: string =''
+  phase: string ='';
   doc: Document = new Document();
+  opened=true;
   constructor(private formBuilder: FormBuilder, private sc:SharedService){}
   ngOnInit(): void {
     this.InitiationForm = this.formBuilder.group({
@@ -90,9 +91,13 @@ export class FormComponent implements OnInit{
       this.doc.useCases = this.SRSForm.value.useCase;
     }else if(this.phase === "DesignForm"){
       this.doc.docType = "Design";
-      this.doc.image = this.DesignForm.value.files;
+      this.doc.filename = this.DesignForm.value.filename;
+      this.doc.imagefile = this.DesignForm.value.imagefile;
     }
     this.sc.updateSharedVariable(false, this.doc);
+  }
 
+  closeDoc(){
+    this.sc.updateSharedVariable(false,this.doc);
   }
 }

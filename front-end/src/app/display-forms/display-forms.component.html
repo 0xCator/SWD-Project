@@ -1,0 +1,54 @@
+<div *ngIf="docList.docType === 'Initiation'">
+    <div>
+        <button mat-raised-button color="warn" (click)="closeDoc()">Close</button>
+    </div>
+    <br>
+        <label>Title: {{docList.title}}</label>
+        <br>
+        <label>Start Date: {{docList.startDate}}</label>
+        <br>
+        <label>End Date: {{docList.endDate}}</label>
+        <br>
+        <label>Objectives: {{docList.objective}}</label>
+        <br>
+        <label>Manager: {{docList.manager}}</label>
+        <br>
+        <label>Budget Information: {{docList.budget}}</label>
+        <br>
+        <label>Scope: {{docList.scope}}</label>
+        <br>
+            <div>
+                <button mat-raised-button>Edit</button>
+                <button mat-raised-button>Delete</button>
+            </div>
+</div>
+<div *ngIf="docList.docType === 'SRS'">
+    <div>
+        <button mat-raised-button color="warn" (click)="closeDoc()">Close</button>
+    </div>
+        <label>Introduction: {{docList.intro}}</label>
+        <br>
+        <label>Purpose Of Software Being Developed: {{docList.purpose}}</label>
+        <br>
+        <label>Intended Audience: {{docList.intendedAudience}}</label>
+        <br>
+        <label>Overall Description Of The Software: {{docList.description}}</label>
+        <br>
+        <label>System Features & Requirements: {{docList.srs}}</label>
+        <br>
+        <label>useCase: {{docList.useCases}}</label>
+        <br>
+            <div>
+                <button mat-raised-button>Edit</button>
+                <button mat-raised-button>Delete</button>
+            </div>
+</div>
+<div *ngIf="docList.docType === 'Design'">
+    <div>
+        <button mat-raised-button color="warn" (click)="closeDoc()">Close</button>
+    </div>
+        <label>File Name: {{docList.filename}}</label>
+        <br>
+        <label>Image: {{docList.purpose}}</label>
+        <br>
+</div>
