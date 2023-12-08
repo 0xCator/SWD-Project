@@ -4,8 +4,8 @@
     <ng-container *ngFor="let doc of docList">
       <mat-card *ngIf="!isObjectEmpty(doc)" (click)="cardClicked(doc)">
         <ng-container *ngIf="doc.docType === 'InitiationForm'">
-        <mat-card-content>
-          {{ doc.title }}
+        <mat-card-content (click)="showFormDetails()">
+          {{doc.title}}
         </mat-card-content>
         </ng-container>
         <ng-container *ngIf="doc.docType === 'SRSForm'">
@@ -13,15 +13,22 @@
           {{ doc.intro}}
         </mat-card-content>
         </ng-container>
+        <ng-container *ngIf="doc.docType === 'DesignForm'">
+        <mat-card-content>
+          <h3>Desgin Phase</h3>
+        </mat-card-content>
+        </ng-container>
       </mat-card>
     </ng-container>
   </div>
-  <div *ngIf="docForm" class="form-container">
+  <div *ngIf="docForm || displayForm" class="form-container">
     <mat-card>
       <mat-card-content>
-        <app-form></app-form>
+        <app-form *ngIf="docForm"></app-form>
+        <app-display-forms *ngIf="displayForm"></app-display-forms>
       </mat-card-content>
     </mat-card>
   </div>
 </div>
+<div>
 

@@ -14,3 +14,16 @@ mutation Mutation($file: Upload!) {
   }
 }
 `;
+
+export const UPDATE_DOC = gql`
+mutation UpdateDocument($updateDocumentId: ID!, $document: updateInput) {
+  updateDocument(id: $updateDocumentId, document: $document) {
+    id
+  }
+}`;
+
+export const DELETE_DOC = gql`
+mutation UpdateDocument($deleteDocumentId: ID!) {
+  deleteDocument(id: $deleteDocumentId)
+}
+`;

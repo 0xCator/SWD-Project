@@ -1,0 +1,55 @@
+<div *ngIf="doc.docType === 'InitiationForm'">
+    <div>
+        <button mat-raised-button color="warn" (click)="closeDoc()">Close</button>
+    </div>
+    <br>
+        <label>Title: {{doc.title}}</label>
+        <br>
+        <label>Start Date: {{doc.startDate}}</label>
+        <br>
+        <label>End Date: {{doc.endDate}}</label>
+        <br>
+        <label>Objectives: {{doc.objective}}</label>
+        <br>
+        <label>Manager: {{doc.manager}}</label>
+        <br>
+        <label>Budget Information: {{doc.budget}}</label>
+        <br>
+        <label>Scope: {{doc.scope}}</label>
+        <br>
+            <div>
+                <button mat-raised-button (click)="updateDoc()">Edit</button>
+                <button mat-raised-button (click)="deleteDoc()">Delete</button>
+            </div>
+</div>
+<div *ngIf="doc.docType === 'SRSForm'">
+    <div>
+        <button mat-raised-button color="warn" (click)="closeDoc()">Close</button>
+    </div>
+        <label>Introduction: {{doc.intro}}</label>
+        <br>
+        <label>Purpose Of Software Being Developed: {{doc.purpose}}</label>
+        <br>
+        <label>Intended Audience: {{doc.intendedAudience}}</label>
+        <br>
+        <label>Overall Description Of The Software: {{doc.description}}</label>
+        <br>
+        <label>System Features & Requirements: {{doc.srs}}</label>
+        <br>
+            <div>
+                <button mat-raised-button (click)="updateDoc()">Edit</button>
+                <button mat-raised-button (click)="deleteDoc()">Delete</button>
+            </div>
+</div>
+<div *ngIf="doc.docType === 'DesignForm'">
+  <div>
+    <button mat-raised-button color="warn" (click)="closeDoc()">Close</button>
+  </div>
+  <h2>Check Files page</h2><br>
+  <ng-container *ngFor="let img of doc.image">
+    <a href="{{img.imagePath}}">{{img.imageTitle}}</a><br>
+  </ng-container>
+  <div> <br> <br>
+    <button mat-raised-button (click)="deleteDoc()">Delete</button>
+  </div>
+</div>

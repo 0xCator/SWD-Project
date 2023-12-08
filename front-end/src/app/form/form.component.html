@@ -1,9 +1,10 @@
 <div class="phaseSelect">
-    <mat-button-toggle-group name="Phase" aria-label="Phase">
+    <mat-button-toggle-group *ngIf="isCreateForm" name="Phase" aria-label="Phase">
         <mat-button-toggle (click)="handleButtonClick('InitiationForm')" value="InitiationForm">Initiation</mat-button-toggle>
         <mat-button-toggle (click)="handleButtonClick('SRSForm')" value="SRSForm">SRS</mat-button-toggle>
         <mat-button-toggle (click)="handleButtonClick('DesignForm')" value="Design">Design</mat-button-toggle>
     </mat-button-toggle-group>
+    <button mat-raised-button color="warn" (click)="closeDoc()">Close</button>
 </div>
 
 <hr>

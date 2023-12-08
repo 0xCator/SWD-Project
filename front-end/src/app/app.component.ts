@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { SdlcComponent } from './sdlc/sdlc.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DisplayFormsComponent } from './display-forms/display-forms.component';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     NavbarComponent,
     HttpClientModule,
+    DisplayFormsComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

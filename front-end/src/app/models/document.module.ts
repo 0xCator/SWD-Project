@@ -4,7 +4,7 @@ export interface Image{
 }
 
 export class Document{
-  id!: number;
+  id!: number |undefined;
   docType!: string;
   title!: string;
   startDate!: string;

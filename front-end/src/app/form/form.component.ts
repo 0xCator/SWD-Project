@@ -12,7 +12,7 @@ import { SharedService } from '../services/shared.service';
 import { Document } from '../models/document.module';
 import {Apollo } from 'apollo-angular';
 import { ApolloModule} from 'apollo-angular';
-import { CREATE_DOC, UPLOAD_FILE } from '../graphQL/mutation';
+import { CREATE_DOC, UPLOAD_FILE, UPDATE_DOC } from '../graphQL/mutation';
 import { ViewChild } from '@angular/core';
 import { ElementRef } from '@angular/core';
 
@@ -32,7 +32,8 @@ export class FormComponent implements OnInit{
   DesignForm!: FormGroup;
   DesignFiles!: String[];
   phase: string =''
-  doc: Document = new Document();
+  updatedoc!: Document;
+  isCreateForm: boolean = true;
 
   constructor(private formBuilder: FormBuilder, private sc:SharedService,
              private apollo: Apollo){}
@@ -42,26 +43,75 @@ export class FormComponent implements OnInit{
 
   ngOnInit(): void {
     this.DesignFiles = [];
-    this.InitiationForm = this.formBuilder.group({
-      title:['', Validators.required],
-      startDate:[null, Validators.required],
-      endDate:[null, Validators.required],
-      objectives:['', Validators.required],
-      manager:['', Validators.required],
-      budget:['', Validators.required],
-      scope:['', Validators.required],
-    })
-    this.SRSForm = this.formBuilder.group({
-      introduction:['', Validators.required],
-      purpose:['', Validators.required],
-      audience:['', Validators.required],
-      description:['', Validators.required],
-      featuresAndRequirements:['', Validators.required],
-      useCase:[null, Validators.required],
-    })
-
     this.DesignForm = this.formBuilder.group({
       files: new FormArray([])
+    })
+    this.sc.sharedCreateForm.subscribe((value)=>{
+      this.isCreateForm = value;
+        this.InitiationForm = this.formBuilder.group({
+          title:['', Validators.required],
+          startDate:[null, Validators.required],
+          endDate:[null, Validators.required],
+          objectives:['', Validators.required],
+          manager:['', Validators.required],
+          budget:['', Validators.required],
+          scope:['', Validators.required],
+        })
+        this.SRSForm = this.formBuilder.group({
+          introduction:['', Validators.required],
+          purpose:['', Validators.required],
+          audience:['', Validators.required],
+          description:['', Validators.required],
+          featuresAndRequirements:['', Validators.required],
+          useCase:[null, Validators.required],
+        })
+
+    })
+    this.sc.sharedPhaseDoc.subscribe((value)=>{
+      this.phase = value
+    })
+    this.sc.sharedDocView.subscribe((value)=>{
+      this.updatedoc =value
+      if(this.isCreateForm){
+
+        this.InitiationForm = this.formBuilder.group({
+          title:['', Validators.required],
+          startDate:[null, Validators.required],
+          endDate:[null, Validators.required],
+          objectives:['', Validators.required],
+          manager:['', Validators.required],
+          budget:['', Validators.required],
+          scope:['', Validators.required],
+        })
+        this.SRSForm = this.formBuilder.group({
+          introduction:['', Validators.required],
+          purpose:['', Validators.required],
+          audience:['', Validators.required],
+          description:['', Validators.required],
+          featuresAndRequirements:['', Validators.required],
+          useCase:[null, Validators.required],
+        })
+      }else{
+
+        this.InitiationForm = this.formBuilder.group({
+          title:[this.updatedoc.title, Validators.required],
+          startDate:[this.updatedoc.startDate, Validators.required],
+          endDate:[this.updatedoc.endDate, Validators.required],
+          objectives:[this.updatedoc.objective, Validators.required],
+          manager:[this.updatedoc.manager, Validators.required],
+          budget:[this.updatedoc.budget, Validators.required],
+          scope:[this.updatedoc.scope, Validators.required],
+        })
+        this.SRSForm = this.formBuilder.group({
+          introduction:[this.updatedoc.intro, Validators.required],
+          purpose:[this.updatedoc.purpose, Validators.required],
+          audience:[this.updatedoc.intendedAudience, Validators.required],
+          description:[this.updatedoc.description, Validators.required],
+          featuresAndRequirements:[this.updatedoc.srs, Validators.required],
+          useCase:[this.updatedoc.useCases, Validators.required],
+        })
+      }
+
     })
   }
 
@@ -135,71 +185,124 @@ export class FormComponent implements OnInit{
     }
   }
   save(){
-
-    if (this.phase === 'InitiationForm') {
-      this.apollo.mutate({
-        mutation: CREATE_DOC,
-        variables: {
-          "document": {
-            "docType": this.phase,
-            "title": this.InitiationForm.value.title,
-            "startDate": this.InitiationForm.value.startDate,
-            "endDate": this.InitiationForm.value.endDate,
-            "objective":this.InitiationForm.value.objectives,
-            "manager": this.InitiationForm.value.manager,
-            "budget": this.InitiationForm.value.budget,
-            "scope": this.InitiationForm.value.scope
+    console.log(this.updatedoc.id)
+    if(this.updatedoc.id === undefined){
+      if (this.phase === 'InitiationForm') {
+        this.apollo.mutate({
+          mutation: CREATE_DOC,
+          variables: {
+            "document": {
+              "docType": this.phase,
+              "title": this.InitiationForm.value.title,
+              "startDate": this.InitiationForm.value.startDate,
+              "endDate": this.InitiationForm.value.endDate,
+              "objective":this.InitiationForm.value.objectives,
+              "manager": this.InitiationForm.value.manager,
+              "budget": this.InitiationForm.value.budget,
+              "scope": this.InitiationForm.value.scope
+            }
           }
-        }
         }).subscribe(({data}) => {
           console.log(data);
         }, (error) => {
           console.log('there was an error sending the query', error);
         }
-      );
-    } else if (this.phase === 'SRSForm') {
-      this.apollo.mutate({
-        mutation: CREATE_DOC,
-        variables: {
-          "document": {
-            "docType": this.phase,
-            "intro": this.SRSForm.value.introduction,
-            "purpose": this.SRSForm.value.purpose,
-            "intendedAudience": this.SRSForm.value.audience,
-            "description": this.SRSForm.value.description,
-            "srs": this.SRSForm.value.featuresAndRequirements,
-            "useCases": this.SRSFile
+                    );
+      } else if (this.phase === 'SRSForm') {
+        this.apollo.mutate({
+          mutation: CREATE_DOC,
+          variables: {
+            "document": {
+              "docType": this.phase,
+              "intro": this.SRSForm.value.introduction,
+              "purpose": this.SRSForm.value.purpose,
+              "intendedAudience": this.SRSForm.value.audience,
+              "description": this.SRSForm.value.description,
+              "srs": this.SRSForm.value.featuresAndRequirements,
+              "useCases": this.SRSFile
+            }
           }
-        }
         }).subscribe(({data}) => {
           console.log(data);
         }, (error) => {
           console.log('there was an error sending the query', error);
         }
-      );
-    }
-    else if(this.phase === 'DesignForm'){
-      this.DesignForm.value.files.forEach((element: any, index: number) => {
-        element.imagePath = this.DesignFiles[index];
-      });
-      console.log(this.DesignForm.value.files);
-      this.apollo.mutate({
-        mutation: CREATE_DOC,
-        variables: {
-          document: {
-            docType: this.phase,
-            image: this.DesignForm.value.files
+                    );
+      }
+      else if(this.phase === 'DesignForm'){
+        this.DesignForm.value.files.forEach((element: any, index: number) => {
+          element.imagePath = this.DesignFiles[index];
+        });
+        console.log(this.DesignForm.value.files);
+        this.apollo.mutate({
+          mutation: CREATE_DOC,
+          variables: {
+            document: {
+              docType: this.phase,
+              image: this.DesignForm.value.files
+            }
           }
-        }
         }).subscribe(({data}) => {
           console.log(data);
         }, (error) => {
           console.log('there was an error sending the query', error);
         }
-      );
+                    );
+      }
+      this.updatedoc.id = undefined
+    }else{
+      console.log(this.InitiationForm.value.title)
+      if (this.updatedoc.docType === 'InitiationForm') {
+        this.apollo.mutate({
+          mutation: UPDATE_DOC,
+          variables: {
+            "updateDocumentId": this.updatedoc.id,
+            "document": {
+              "title": this.InitiationForm.value.title,
+              "startDate": this.InitiationForm.value.startDate,
+              "endDate": this.InitiationForm.value.endDate,
+              "objective":this.InitiationForm.value.objectives,
+              "manager": this.InitiationForm.value.manager,
+              "budget": this.InitiationForm.value.budget,
+              "scope": this.InitiationForm.value.scope
+            }
+          }
+        }).subscribe(({data}) => {
+          console.log(data);
+        }, (error) => {
+          console.log('there was an error sending the query', error);
+        });
+      this.updatedoc.id = undefined;
+      } else if (this.updatedoc.docType === 'SRSForm') {
+        this.apollo.mutate({
+          mutation: UPDATE_DOC,
+          variables: {
+            "updateDocumentId": this.updatedoc.id,
+            "document": {
+              "intro": this.SRSForm.value.introduction,
+              "purpose": this.SRSForm.value.purpose,
+              "intendedAudience": this.SRSForm.value.audience,
+              "description": this.SRSForm.value.description,
+              "srs": this.SRSForm.value.featuresAndRequirements,
+              "useCases": this.SRSFile
+            }
+          }
+        }).subscribe(({data}) => {
+          console.log(data);
+        }, (error) => {
+          console.log('there was an error sending the query', error);
+        }
+                    );
+      }
+      this.updatedoc.id = undefined;
     }
     this.sc.updateSharedVariable(false);
     this.DesignFiles = [];
     this.SRSFile="";
+  }
+
+  closeDoc(){
+    this.sc.updateSharedVariable(false);
+
   }
 }
