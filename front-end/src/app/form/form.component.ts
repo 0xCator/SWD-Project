@@ -128,8 +128,10 @@ export class FormComponent implements OnInit{
           console.log(this.DesignFiles);
         });
     }else{
-      this.fileInput.nativeElement.value = '';
+      (<FormGroup>this.designForms.controls[index]).controls['imagePath'].setValue('');
+      this.DesignFiles[index] = '';
       alert("Please upload a valid image file");
+      console.log(this.DesignFiles);
     }
   }
   save(){
