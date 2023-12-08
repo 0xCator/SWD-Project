@@ -35,6 +35,7 @@ export class FormComponent implements OnInit{
   constructor(private formBuilder: FormBuilder, private sc:SharedService,
              private apollo: Apollo){}
   ngOnInit(): void {
+    this.DesignFiles = [];
     this.InitiationForm = this.formBuilder.group({
       title:['', Validators.required],
       startDate:[null, Validators.required],
@@ -64,15 +65,17 @@ export class FormComponent implements OnInit{
 
   addDesignForm(){
     let document = new FormGroup({
-      filename: new FormControl('', Validators.required),
-      imagefile: new FormControl('', Validators.required)
+      imageTitle: new FormControl('', Validators.required),
+      imagePath: new FormControl('', Validators.required)
     })
 
     this.designForms.push(document);
+    this.DesignFiles.push("");
   }
 
   removeDesignForm(i: number){
     this.designForms.removeAt(i);
+    this.DesignFiles.splice(i, 1);
   }
   handleButtonClick(buttonValue: string) {
     this.phase = buttonValue;
@@ -92,6 +95,24 @@ export class FormComponent implements OnInit{
         .subscribe(({ data }: any) => {
           console.log(data)
           this.SRSFile = data.uploadFile.url;
+        });
+  }
+  handleDesignFile(event: any, index: number) {
+    const file: File = event.target.files[0];
+    console.log(file);
+      this.apollo.mutate<any>({
+        mutation: UPLOAD_FILE,
+        variables: {
+          file
+        },
+        context: {
+          useMultipart: true
+        }
+      })
+        .subscribe(({ data }: any) => {
+          console.log(data)
+          this.DesignFiles[index] = data.uploadFile.url;
+          console.log(this.DesignFiles);
         });
   }
   save(){
@@ -139,6 +160,10 @@ export class FormComponent implements OnInit{
       );
     }
     else if(this.phase === 'DesignForm'){
+      this.DesignForm.value.files.forEach((element: any, index: number) => {
+        element.imagePath = this.DesignFiles[index];
+      });
+      console.log(this.DesignForm.value.files);
       this.apollo.mutate({
         mutation: CREATE_DOC,
         variables: {

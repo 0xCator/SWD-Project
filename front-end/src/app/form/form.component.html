@@ -82,10 +82,10 @@
     <div formArrayName="files">
         <div *ngFor="let files of designForms.controls; let i=index" [formGroupName]="i">
             <mat-form-field>
-                <input matInput placeholder="File Name" formControlName="filename" required>
+                <input matInput placeholder="File Name" formControlName="imageTitle" required>
             </mat-form-field>
             <div>
-                <input type="file" id="ImageFile" formControlName="imagefile" required>
+                <input type="file" (change)="handleDesignFile($event, i)" id="ImageFile" formControlName="imagePath" required>
             </div>
             <button mat-raised-button color="warn" (click)="removeDesignForm(i)">Remove</button>
         </div>

@@ -1,4 +1,4 @@
-const Upload = require('graphql-upload/GraphQLUpload.js');
+const GraphQLUpload = require('graphql-upload/GraphQLUpload.js');
 const { Document } = require("../Models/document.model");
 const path = require("path");
 const fs = require("fs");
@@ -16,6 +16,7 @@ function generateRandomString(length) {
   }
 
 const resolvers = {
+    Upload: GraphQLUpload,
     Query: {
         getAllDocuments: async () => {
             return await Document.find();

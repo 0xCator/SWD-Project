@@ -8,6 +8,7 @@ import {MatButtonModule} from '@angular/material/button'
 import { CommonModule } from '@angular/common';
 import { SdlcComponent } from './sdlc/sdlc.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     MatSelectModule,
     MatButtonModule,
     NavbarComponent,
+    HttpClientModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

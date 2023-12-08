@@ -30,5 +30,6 @@ export const graphqlProvider: ApplicationConfig['providers'] = [
   {
     provide: APOLLO_OPTIONS,
     useFactory: apolloOptionsFactory,
+    deps: [HttpLink]
   },
 ];
