@@ -10,11 +10,12 @@
   </div>
   <div *ngIf="imageView" class="form-container">
     <mat-card>
-      <mat-card-content>
+      <mat-card-content class="designFile">
         <img [src]="image.imagePath" alt="image" class="image-view">
-        <h2 *ngIf="image.imageTitle === 'Use Case'">Phase: Use Case</h2>
-        <h2 *ngIf="image.imageTitle !== 'Use Case'">Image Name: {{ image.imageTitle }}</h2>
-        <h2 *ngIf="image.imageTitle !== 'Use Case'">Phase: Design Phase</h2>
+        <hr>
+        <p *ngIf="image.imageTitle === 'Use Case'"><b>Phase:</b> Use Case</p>
+        <p *ngIf="image.imageTitle !== 'Use Case'"><b>Image Name:</b> {{ image.imageTitle }}</p>
+        <p *ngIf="image.imageTitle !== 'Use Case'"><b>Phase:</b> Design Phase</p>
       </mat-card-content>
     </mat-card>
   </div>

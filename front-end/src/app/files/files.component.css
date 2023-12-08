@@ -21,5 +21,15 @@
 }
 mat-card-content {
   padding: 16px;
+  font-size: 1.2em;
+  color:white;
+  opacity: 0.87;
 }
 
+img {
+  max-width: -webkit-fill-available;
+}
+
+.designFile {
+  text-align: center;
+}

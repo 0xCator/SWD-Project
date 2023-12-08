@@ -1,10 +1,12 @@
 <div class="phaseSelect">
+    <div style="align-self: flex-end;">
+        <button mat-raised-button color="warn" (click)="closeDoc()">Close</button>
+    </div>
     <mat-button-toggle-group *ngIf="isCreateForm" name="Phase" aria-label="Phase">
         <mat-button-toggle (click)="handleButtonClick('InitiationForm')" value="InitiationForm">Initiation</mat-button-toggle>
         <mat-button-toggle (click)="handleButtonClick('SRSForm')" value="SRSForm">SRS</mat-button-toggle>
         <mat-button-toggle (click)="handleButtonClick('DesignForm')" value="Design">Design</mat-button-toggle>
     </mat-button-toggle-group>
-    <button mat-raised-button color="warn" (click)="closeDoc()">Close</button>
 </div>
 
 <hr>
@@ -56,7 +58,7 @@
     <mat-form-field>
         <input matInput placeholder="Overall Description of the software" formControlName="description" required>
     </mat-form-field>
-    <mat-label>
+    <mat-label class="largerText">
         System Features & Requirements
         <ol>
             <li>Functional Requirements</li>
@@ -69,7 +71,7 @@
         </textarea>
     </mat-form-field>
     <div>
-        <label for="UseCaseDiagram">Use Case</label>
+        <label for="UseCaseDiagram" class="largerText">Use Case</label><br>
         <input #fileInput type="file" accept=".png,.jpg,.jpeg,.image" (change)="handleSRSFile($event)" id="UseCaseDiagram" formControlName="useCase" required>
     </div>
     <br>
@@ -80,14 +82,14 @@
 </form>
 
 <form *ngIf="phase === 'DesignForm'" [formGroup]="DesignForm">
-    <div formArrayName="files">
+    <div class="imageInput" formArrayName="files">
         <div *ngFor="let files of designForms.controls; let i=index" [formGroupName]="i">
             <mat-form-field>
                 <input matInput placeholder="File Name" formControlName="imageTitle" required>
             </mat-form-field>
             <div>
                 <input #fileInput type="file" accept=".png,.jpg,.jpeg,.image" (change)="handleDesignFile($event, i)" id="ImageFile" formControlName="imagePath" required>
-            </div>
+            </div><br>
             <button mat-raised-button color="warn" (click)="removeDesignForm(i)">Remove</button>
         </div>
     </div>

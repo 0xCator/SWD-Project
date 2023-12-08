@@ -44,7 +44,7 @@ export class SdlcComponent implements OnInit{
     }).subscribe(({data})=>{
       this.docList = data.getAllDocuments ;
     })
-    }, 200)
+    }, 300)
 
   }
 
