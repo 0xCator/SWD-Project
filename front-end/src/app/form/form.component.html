@@ -39,7 +39,7 @@
     </mat-form-field>
     <hr>
     <div>
-    <button mat-raised-button (click)="save()" type="submit" [disabled]="!InitiationForm.valid">Submit</button>
+    <button mat-raised-button color="primary" (click)="save()" type="submit" [disabled]="!InitiationForm.valid">Submit</button>
     <button mat-raised-button type="reset">Reset</button>
     </div>
 </form>
@@ -74,7 +74,7 @@
     </div>
     <br>
     <div>
-    <button mat-raised-button (click)="save()" type="submit" [disabled]="!SRSForm.valid">Submit</button>
+    <button mat-raised-button color="primary" (click)="save()" type="submit" [disabled]="!SRSForm.valid">Submit</button>
         <button mat-raised-button type="reset">Reset</button>
     </div>
 </form>
@@ -93,7 +93,7 @@
     </div>
     <button mat-raised-button (click)="addDesignForm()">Add</button>
     <div>
-        <button mat-raised-button (click)="save()" type="submit" [disabled]="!DesignForm.valid || designForms.length === 0">Submit</button>
+        <button mat-raised-button color="primary" (click)="save()" type="submit" [disabled]="!DesignForm.valid || designForms.length === 0">Submit</button>
         <button mat-raised-button type="reset">Reset</button>
     </div>
 

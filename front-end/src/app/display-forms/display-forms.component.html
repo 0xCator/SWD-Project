@@ -18,8 +18,8 @@
         <label>Scope: {{doc.scope}}</label>
         <br>
             <div>
-                <button mat-raised-button (click)="updateDoc()">Edit</button>
-                <button mat-raised-button (click)="deleteDoc()">Delete</button>
+                <button mat-raised-button color="primary" (click)="updateDoc()">Edit</button>
+                <button mat-raised-button color="warn" (click)="deleteDoc()">Delete</button>
             </div>
 </div>
 <div *ngIf="doc.docType === 'SRSForm'">
@@ -37,8 +37,8 @@
         <label>System Features & Requirements: {{doc.srs}}</label>
         <br>
             <div>
-                <button mat-raised-button (click)="updateDoc()">Edit</button>
-                <button mat-raised-button (click)="deleteDoc()">Delete</button>
+                <button mat-raised-button color="primary" (click)="updateDoc()">Edit</button>
+                <button mat-raised-button color="warn" (click)="deleteDoc()">Delete</button>
             </div>
 </div>
 <div *ngIf="doc.docType === 'DesignForm'">
@@ -50,6 +50,6 @@
     <a href="{{img.imagePath}}">{{img.imageTitle}}</a><br>
   </ng-container>
   <div> <br> <br>
-    <button mat-raised-button (click)="deleteDoc()">Delete</button>
+    <button mat-raised-button color="warn" (click)="deleteDoc()">Delete</button>
   </div>
 </div>
