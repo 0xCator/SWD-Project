@@ -7,7 +7,10 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatTableModule } from '@angular/material/table'
 import { SharedService } from '../services/shared.service';
-import { Document } from '../models/document.module';
+import { Document, Image } from '../models/document.module';
+import { Apollo } from 'apollo-angular';
+import { GET_ALL_DOC} from '../graphQL/query';
+
 
 @Component({
   selector: 'app-files',
@@ -25,29 +28,45 @@ import { Document } from '../models/document.module';
   styleUrl: './files.component.css'
 })
 export class FilesComponent {
-  docForm = false
-  docList!: Document[]
-  constructor(private sc: SharedService) {
-    this.docList = [];
-    this.docList.length = 0;
-
-  }
+  imageView = false
+  imgList: Image[] = [];
+  docList: Document[]= [];
+  image!: Image;
+  constructor(private sc: SharedService, private apollo: Apollo) {}
   ngOnInit(): void {
-    this.sc.sharedDocForm.subscribe((value)=>{
-      this.docForm = value;
-    })
-    this.sc.sharedDoc.subscribe((value)=>{
-      this.docList.push(value);
+    this.apollo.query<any>({
+      query: GET_ALL_DOC
+    }).subscribe(({data})=>{
+      this.docList= data.getAllDocuments ;
+      this.getImgList();
     })
   }
 
-  cardClicked(doc: Document) {
-    console.log(doc);
+  getImgList(){
+    for(const doc of this.docList){
+      if(doc.useCases != null){
+        console.log(doc.useCases);
+        const useCase: Image = {
+          imageTitle: 'Use Case',
+          imagePath: doc.useCases
+        }
+        this.imgList.push(useCase);
+      }
+      if(doc.image){
+        for (const img of doc.image){
+          this.imgList.push(img);
+          console.log(this.imgList);
+        }
+      }
+    }
   }
-  createDoc(){
-    this.docForm= true;
+
+  cardClicked(img: Image) {
+    this.imageView = true;
+    this.image = img;
+    console.log(this.image);
   }
-  isObjectEmpty(obj: Document): boolean {
+  isObjectEmpty(obj: Image): boolean {
     return Object.keys(obj).length === 0;
   }
 }

@@ -24,6 +24,16 @@ query GetAllDocuments {
     }
   }
 }`;
+export const GET_ALL_IMG= gql`
+query GetAllDocuments {
+  getAllDocuments {
+    useCases
+    image {
+      imageTitle
+      imagePath
+    }
+  }
+}`;
 
 export const GET_DOC = gql`
 query Query($getDocumentId: ID!) {

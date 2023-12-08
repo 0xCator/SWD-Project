@@ -1,3 +1,7 @@
+export interface Image{
+  imageTitle: string;
+  imagePath: string;
+}
 
 export class Document{
   id!: number;
@@ -17,6 +21,6 @@ export class Document{
   srs!: string;
   useCases!: string;
 
-  image!: string[];
+  image!: Image[];
 
 }

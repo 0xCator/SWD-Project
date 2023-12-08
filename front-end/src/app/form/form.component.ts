@@ -13,6 +13,8 @@ import { Document } from '../models/document.module';
 import {Apollo } from 'apollo-angular';
 import { ApolloModule} from 'apollo-angular';
 import { CREATE_DOC, UPLOAD_FILE } from '../graphQL/mutation';
+import { ViewChild } from '@angular/core';
+import { ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-form',
@@ -34,6 +36,10 @@ export class FormComponent implements OnInit{
 
   constructor(private formBuilder: FormBuilder, private sc:SharedService,
              private apollo: Apollo){}
+  @ViewChild('fileInput')
+  fileInput!: ElementRef;
+
+
   ngOnInit(): void {
     this.DesignFiles = [];
     this.InitiationForm = this.formBuilder.group({
@@ -82,7 +88,8 @@ export class FormComponent implements OnInit{
   }
   handleSRSFile(event: any) {
     const file: File = event.target.files[0];
-    console.log(file);
+    const ext = file.name.slice(file.name.lastIndexOf('.'), file.name.length);
+    if(ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.image'){
       this.apollo.mutate<any>({
         mutation: UPLOAD_FILE,
         variables: {
@@ -92,13 +99,19 @@ export class FormComponent implements OnInit{
           useMultipart: true
         }
       })
-        .subscribe(({ data }: any) => {
-          console.log(data)
-          this.SRSFile = data.uploadFile.url;
-        });
+      .subscribe(({ data }: any) => {
+        console.log(data)
+        this.SRSFile = data.uploadFile.url;
+      });
+    }else{
+      this.fileInput.nativeElement.value = '';
+      alert("Please upload a valid image file");
+    }
   }
   handleDesignFile(event: any, index: number) {
     const file: File = event.target.files[0];
+    const ext = file.name.slice(file.name.lastIndexOf('.'), file.name.length);
+    if(ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.image'){
     console.log(file);
       this.apollo.mutate<any>({
         mutation: UPLOAD_FILE,
@@ -114,6 +127,10 @@ export class FormComponent implements OnInit{
           this.DesignFiles[index] = data.uploadFile.url;
           console.log(this.DesignFiles);
         });
+    }else{
+      this.fileInput.nativeElement.value = '';
+      alert("Please upload a valid image file");
+    }
   }
   save(){
 

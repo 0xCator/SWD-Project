@@ -69,7 +69,7 @@
     </mat-form-field>
     <div>
         <label for="UseCaseDiagram">Use Case</label>
-        <input type="file" (change)="handleSRSFile($event)" id="UseCaseDiagram" formControlName="useCase" required>
+        <input #fileInput type="file" accept=".png,.jpg,.jpeg,.image" (change)="handleSRSFile($event)" id="UseCaseDiagram" formControlName="useCase" required>
     </div>
     <br>
     <div>
@@ -85,7 +85,7 @@
                 <input matInput placeholder="File Name" formControlName="imageTitle" required>
             </mat-form-field>
             <div>
-                <input type="file" (change)="handleDesignFile($event, i)" id="ImageFile" formControlName="imagePath" required>
+                <input #fileInput type="file" accept=".png,.jpg,.jpeg,.image" (change)="handleDesignFile($event, i)" id="ImageFile" formControlName="imagePath" required>
             </div>
             <button mat-raised-button color="warn" (click)="removeDesignForm(i)">Remove</button>
         </div>
