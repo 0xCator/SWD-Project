@@ -13,6 +13,8 @@ export class SharedService {
   private displayForm = new BehaviorSubject<boolean>(false);
   private isCreateForm= new BehaviorSubject<boolean>(true);
   private phaseDoc = new BehaviorSubject<string>("");
+  private getDocList = new BehaviorSubject<boolean>(false);
+  sharedDocList = this.getDocList.asObservable();
   sharedPhaseDoc = this.phaseDoc.asObservable();
   sharedDocForm= this.docForm.asObservable();
   sharedDoc = this.doc.asObservable();
@@ -20,6 +22,9 @@ export class SharedService {
   sharedDisplayedForm = this.displayForm.asObservable();
   sharedCreateForm= this.isCreateForm.asObservable();
 
+  updateDocList(bool: boolean){
+    this.getDocList.next(bool)
+  }
   updatePhase(phase: string){
     this.phaseDoc.next(phase)
   }

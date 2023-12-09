@@ -15,6 +15,7 @@ import { ApolloModule} from 'apollo-angular';
 import { CREATE_DOC, UPLOAD_FILE, UPDATE_DOC } from '../graphQL/mutation';
 import { ViewChild } from '@angular/core';
 import { ElementRef } from '@angular/core';
+import { GET_ALL_DOC } from '../graphQL/query';
 
 @Component({
   selector: 'app-form',
@@ -34,6 +35,7 @@ export class FormComponent implements OnInit{
   phase: string =''
   updatedoc!: Document;
   isCreateForm: boolean = true;
+  docList: Document[]= [];
 
   constructor(private formBuilder: FormBuilder, private sc:SharedService,
              private apollo: Apollo){}
@@ -296,6 +298,7 @@ export class FormComponent implements OnInit{
       }
       this.updatedoc.id = undefined;
     }
+    this.sc.updateDocList(true);
     this.sc.updateSharedVariable(false);
     this.DesignFiles = [];
     this.SRSFile="";

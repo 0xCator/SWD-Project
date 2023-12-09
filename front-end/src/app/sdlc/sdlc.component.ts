@@ -38,27 +38,34 @@ export class SdlcComponent implements OnInit{
       this.displayForm = value;
     })
 
-    setInterval(()=>{
+    this.sc.sharedDocList.subscribe((value)=>{
+      this.getDocList();
+    });
+
+    this.getDocList();
+  }
+
+  getDocList(){
     this.apollo.query<any>({
       query: GET_ALL_DOC
     }).subscribe(({data})=>{
       this.docList = data.getAllDocuments ;
     })
-    }, 300)
-
   }
-
 
   cardClicked(doc: Document) {
     console.log(doc)
+    this.displayForm = true;
+    console.log(this.displayForm)
+    console.log(this.docForm)
     this.sc.updateDocView(doc);
-    this.sc.updateDisplay(true)
   }
 
   createDoc(){
+    this.isCreateForm = true;
+    this.displayForm = false;
     this.sc.updatePhase("")
     this.sc.docCreateForm();
-    this.sc.updateDisplay(false)
     this.docForm= true;
     this.doc.id = undefined;
     this.sc.updateDocView(this.doc)
