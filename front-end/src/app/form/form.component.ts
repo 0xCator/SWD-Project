@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, FormControl, FormArray, Validators} from '@angular/forms'
+import {FormBuilder, FormGroup, ReactiveFormsModule, FormControl, FormArray, Validators, AbstractControl} from '@angular/forms'
 import {MatFormFieldModule} from '@angular/material/form-field'
 import {MatInputModule} from '@angular/material/input'
 import {MatSelectModule} from '@angular/material/select'
@@ -52,8 +52,8 @@ export class FormComponent implements OnInit{
       this.isCreateForm = value;
         this.InitiationForm = this.formBuilder.group({
           title:['', Validators.required],
-          startDate:[null, Validators.required],
-          endDate:[null, Validators.required],
+          startDate:[null, [Validators.required, (c: AbstractControl) => (new Date(c.value).getDate() < new Date().getDate() ? { invalid: true } : null)]],
+          endDate:[null, [Validators.required, (c: AbstractControl) => (new Date(c.value).getDate() < new Date(c.parent?.get('startDate')!.value).getDate() ? { invalid: true } : null)]],
           objectives:['', Validators.required],
           manager:['', Validators.required],
           budget:['', Validators.required],
@@ -78,8 +78,8 @@ export class FormComponent implements OnInit{
 
         this.InitiationForm = this.formBuilder.group({
           title:['', Validators.required],
-          startDate:[null, Validators.required],
-          endDate:[null, Validators.required],
+          startDate:[null, [Validators.required, (c: AbstractControl) => (new Date(c.value).getDate() < new Date().getDate() ? { invalid: true } : null)]],
+          endDate:[null, [Validators.required, (c: AbstractControl) => (new Date(c.value).getDate() < new Date(c.parent?.get('startDate')!.value).getDate() ? { invalid: true } : null)]],
           objectives:['', Validators.required],
           manager:['', Validators.required],
           budget:['', Validators.required],
@@ -97,8 +97,8 @@ export class FormComponent implements OnInit{
 
         this.InitiationForm = this.formBuilder.group({
           title:[this.updatedoc.title, Validators.required],
-          startDate:[this.updatedoc.startDate, Validators.required],
-          endDate:[this.updatedoc.endDate, Validators.required],
+          startDate:[this.updatedoc.startDate, [Validators.required, (c: AbstractControl) => (new Date(c.value).getDate() < new Date().getDate() ? { invalid: true } : null)]],
+          endDate:[this.updatedoc.endDate, [Validators.required, (c: AbstractControl) => (new Date(c.value).getDate() < new Date(c.parent?.get('startDate')!.value).getDate() ? { invalid: true } : null)]],
           objectives:[this.updatedoc.objective, Validators.required],
           manager:[this.updatedoc.manager, Validators.required],
           budget:[this.updatedoc.budget, Validators.required],
