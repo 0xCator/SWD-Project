@@ -104,7 +104,6 @@ export class FormComponent implements OnInit{
           budget:[this.updatedoc.budget, Validators.required],
           scope:[this.updatedoc.scope, Validators.required],
         })
-        console.log(this.updatedoc.useCases)
         this.SRSForm = this.formBuilder.group({
           introduction:[this.updatedoc.intro, Validators.required],
           purpose:[this.updatedoc.purpose, Validators.required],
