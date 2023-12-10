@@ -2,7 +2,7 @@
   <div class="card-list-container">
     <button mat-raised-button color="primary" class="card-button" (click)="createDoc()">Create</button>
     <ng-container *ngFor="let doc of docList">
-      <mat-card *ngIf="!isObjectEmpty(doc)" (click)="cardClicked(doc)">
+      <mat-card class="selectable" *ngIf="!isObjectEmpty(doc)" (click)="cardClicked(doc)">
         <ng-container *ngIf="doc.docType === 'InitiationForm'">
         <mat-card-content (click)="showFormDetails()">
           {{doc.title}}

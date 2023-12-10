@@ -1,7 +1,7 @@
 <div class="container">
   <div class="card-list-container">
     <ng-container *ngFor="let img of imgList">
-      <mat-card *ngIf="!isObjectEmpty(img)" (click)="cardClicked(img)">
+      <mat-card class="selectable" *ngIf="!isObjectEmpty(img)" (click)="cardClicked(img)">
         <mat-card-content>
           {{ img.imageTitle}}
         </mat-card-content>

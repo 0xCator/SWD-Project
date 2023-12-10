@@ -15,6 +15,10 @@
   width: 60%;
 }
 
+.selectable:hover {
+  background-color: #A3276B;
+}
+
 .card-list-container mat-card-content {
   height: 50px;
 }

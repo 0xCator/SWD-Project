@@ -33,3 +33,7 @@ img {
 .designFile {
   text-align: center;
 }
+
+.selectable:hover {
+  background-color: #A3276B;
+}
