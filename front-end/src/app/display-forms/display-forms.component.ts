@@ -31,10 +31,10 @@ export class DisplayFormsComponent implements OnInit{
   }
 
   closeDoc(){
+    this.sc.updateDocView(this.doc)
     this.sc.docCreateForm()
     this.sc.updateDisplay(false);
     this.doc.id = undefined
-    this.sc.updateDocView(this.doc)
   }
 
   updateDoc(){
