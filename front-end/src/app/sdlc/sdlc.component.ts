@@ -56,13 +56,11 @@ export class SdlcComponent implements OnInit{
   cardClicked(doc: Document) {
     console.log(doc)
     this.displayForm = true;
-    console.log(this.displayForm)
-    console.log(this.docForm)
+    this.docForm = false;
     this.sc.updateDocView(doc);
   }
 
   createDoc(){
-    this.isCreateForm = true;
     this.displayForm = false;
     this.sc.updatePhase("")
     this.sc.docCreateForm();

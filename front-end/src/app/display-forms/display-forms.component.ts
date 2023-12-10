@@ -54,6 +54,7 @@ export class DisplayFormsComponent implements OnInit{
       console.log('there was an error sending the query', error);
     });
     this.doc.id = undefined
+    this.sc.updateDocList(true);
     this.sc.updateDocView(this.doc)
     this.closeDoc()
   }
